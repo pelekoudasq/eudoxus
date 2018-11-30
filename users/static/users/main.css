@@ -82,3 +82,7 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.btn-toolbar{
+  text-align: center;
+}​

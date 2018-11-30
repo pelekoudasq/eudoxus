@@ -1,15 +1,108 @@
 {% extends "users/base.html"%}
 {% block content %}
-	{% for post in posts %}
-		<article class="media content-section">
-		  <div class="media-body">
-		    <div class="article-metadata">
-		      <a class="mr-2" href="#">{{ post.author }}</a>
-		      <small class="text-muted">{{ post.date_posted|date:"d F Y" }}</small>
-		    </div>
-		    <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-		    <p class="article-content">{{ post.content }}</p>
-		  </div>
-		</article>
-	{% endfor %}
+	<div class="col-md-12">
+		<div class="content-section">
+			<ul class="nav justify-content-center nav-tabs" id="myTab" role="tablist">
+			  <li class="nav-item">
+			    <a class="nav-link active" id="student-tab" data-toggle="tab" href="#student" role="tab" aria-controls="student" aria-selected="true">Φοιτητής</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" id="publisher-tab" data-toggle="tab" href="#publisher" role="tab" aria-controls="publisher" aria-selected="false">Εκδότης</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" id="distributer-tab" data-toggle="tab" href="#distributer" role="tab" aria-controls="distributer" aria-selected="false">Σημείο Διανομής</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" id="secretary-tab" data-toggle="tab" href="#secretary" role="tab" aria-controls="secretary" aria-selected="false">Γραμματεία</a>
+			  </li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+			  <div class="tab-pane text-center fade show active" id="student" role="tabpanel" aria-labelledby="student-tab">
+			  	<br>
+			  	Οι δηλώσεις και οι διανομές των συγγραμμάτων <br>
+			  	για το Χειμερινό Εξάμηνο 2018 - 2019 <br>
+			  	ξεκίνησαν την <b>Τετάρτη 24 Οκτωβρίου</b> <br> 
+			  	και θα ολοκληρωθούν την <b>Παρασκευή 21 Δεκεμβρίου</b>
+			  	<br>
+			  	<br>
+			  	Είσαι νέος φοιτητής;<a class="ml-2" href="{% url 'register' %}">Κάνε εγγραφή</a>
+			  	<br>
+			  	<br>
+			  	<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
+				  <div class="btn-group mr-2" role="group" aria-label="First group">
+				    <button type="button" class="btn btn-info">ΔΙΑΘΕΣΙΜΑ ΣΥΓΓΡΑΜΜΑΤΑ</button>
+				  </div>
+				  <div class="btn-group" role="group" aria-label="Second group">
+				    <button type="button" class="btn btn-outline-success">ΔΗΛΩΣΗ ΣΥΓΓΡΑΜΜΑΤΩΝ</button>
+				  </div>
+				</div>
+				<br>
+			  </div>
+			  <div class="tab-pane text-center fade" id="publisher" role="tabpanel" aria-labelledby="publisher-tab">
+			  	<br>
+			  	Οι δηλώσεις και οι διανομές των συγγραμμάτων <br>
+			  	για το Χειμερινό Εξάμηνο 2018 - 2019 <br>
+			  	ξεκίνησαν την <b>Τετάρτη 24 Οκτωβρίου</b> <br> 
+			  	και θα ολοκληρωθούν την <b>Παρασκευή 21 Δεκεμβρίου</b>
+			  	<br>
+			  	<br>
+			  	Είστε Εκδοτικός Οίκος ή Αυτοεκδότης χωρίς λογαριασμό στον Εύδοξο;<a class="ml-2" href="{% url 'register' %}">Εγγραφείτε</a>
+			  	<br>
+			  	<br>
+			  	<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
+				  <div class="btn-group mr-2" role="group" aria-label="First group">
+				    <button type="button" class="btn btn-info">ΣΥΓΓΡΑΜΜΑΤΑ ΕΚΔΟΤΗ</button>
+				  </div>
+				  <div class="btn-group" role="group" aria-label="Second group">
+				    <button type="button" class="btn btn-outline-success">ΟΔΗΓΟΣ ΕΚΔΟΤΗ</button>
+				  </div>
+				</div>
+				<br>
+			  </div>
+			  <div class="tab-pane text-center fade" id="distributer" role="tabpanel" aria-labelledby="distributer-tab">
+			  	<br>
+			  	Οι δηλώσεις και οι διανομές των συγγραμμάτων <br>
+			  	για το Χειμερινό Εξάμηνο 2018 - 2019 <br>
+			  	ξεκίνησαν την <b>Τετάρτη 24 Οκτωβρίου</b> <br> 
+			  	και θα ολοκληρωθούν την <b>Παρασκευή 21 Δεκεμβρίου</b>
+			  	<br>
+			  	<br>
+			  	Είστε Βιβλιοπωλείο ή Βιβλιοθήκη χωρίς λογαριασμό στον Εύδοξο;<a class="ml-2" href="{% url 'register' %}">Εγγραφείτε</a>
+			  	<br>
+			  	<br>
+			  	<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
+				  <div class="btn-group mr-2" role="group" aria-label="First group">
+				    <button type="button" class="btn btn-info">ΠΑΡΑΔΟΣΗ ΣΥΓΓΡΑΜΜΑΤΩΝ</button>
+				  </div>
+				  <div class="btn-group" role="group" aria-label="Second group">
+				    <button type="button" class="btn btn-outline-success">ΟΔΗΓΟΣ ΣΗΜΕΙΟΥ ΔΙΑΝΟΜΗΣ</button>
+				  </div>
+				</div>
+				<br>
+			  </div>
+			  <div class="tab-pane text-center fade" id="secretary" role="tabpanel" aria-labelledby="secretary-tab">
+			  	<br>
+			  	Οι δηλώσεις και οι διανομές των συγγραμμάτων <br>
+			  	για το Χειμερινό Εξάμηνο 2018 - 2019 <br>
+			  	ξεκίνησαν την <b>Τετάρτη 24 Οκτωβρίου</b> <br> 
+			  	και θα ολοκληρωθούν την <b>Παρασκευή 21 Δεκεμβρίου</b>
+			  	<br>
+			  	<br>
+			  	Είστε Γραμματεία χωρίς λογαριασμό στον Εύδοξο;<a class="ml-2" href="{% url 'register' %}">Εγγραφείτε</a>
+			  	<br>
+			  	<br>
+			  	<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
+				  <div class="btn-group mr-2" role="group" aria-label="First group">
+				    <button type="button" class="btn btn-info">ΠΡΟΓΡΑΜΜΑ ΣΠΟΥΔΩΝ</button>
+				  </div>
+				  <div class="btn-group" role="group" aria-label="Second group">
+				    <button type="button" class="btn btn-outline-success">ΟΔΗΓΟΣ ΓΡΑΜΜΑΤΕΙΑΣ</button>
+				  </div>
+				</div>
+				<br>
+			  </div>
+			</div>
+			
+		</div>
+	</div>
 {% endblock content %}
