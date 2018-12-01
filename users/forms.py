@@ -8,3 +8,14 @@ class UserRegisterForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ['username', 'email', 'password1', 'password2']
+
+class ContactForm(forms.Form):
+	from_email = forms.EmailField(required=True)
+	subject = forms.CharField(required=True)
+	message = forms.CharField(widget=forms.Textarea, required=True)
+
+	def __init__(self, *args, **kwargs):
+		super(ContactForm, self).__init__(*args, **kwargs)
+		self.fields['subject'].label = "Θέμα:"
+		self.fields['from_email'].label = "Email:"
+		self.fields['message'].label = "Περιεχόμενο:"

@@ -1,9 +1,13 @@
 {% extends "users/base.html"%}
 {% block content %}
-	<h2>Έχετε αποσυνδεθεί</h2>
-	<div class="border-top pt-3">
-		<small class="text muted">
-			<a href="{% url 'login' %}">Συνδεθείτε ξανα</a>
-		</small>
-	</div>
+	<div class="col-md-12">
+		<div class="content-section">
+			<h2>Έχετε αποσυνδεθεί</h2>
+			<div class="border-top pt-3">
+				<small class="text muted">
+					<a href="{% url 'login' %}">Συνδεθείτε ξανα</a>
+				</small>
+			</div>
+		</div>
+	</div>	
 {% endblock content %}

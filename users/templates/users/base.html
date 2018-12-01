@@ -25,10 +25,10 @@
 				<div class="collapse navbar-collapse" id="navbarToggle">
 					<div class="navbar-nav mr-auto">
 						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-home' %}active{% endif %}" href="{% url 'users-home' %}">Αρχική</a>
-						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-about' %}active{% endif %}" href="{% url 'users-about' %}">Ανακοινώσεις</a>
-						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-about' %}active{% endif %}" href="{% url 'users-about' %}">Ανταλλαγή</a>
+						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-announcements' %}active{% endif %}" href="{% url 'users-announcements' %}">Ανακοινώσεις</a>
+						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-exchange' %}active{% endif %}" href="{% url 'users-exchange' %}">Ανταλλαγή</a>
 						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-about' %}active{% endif %}" href="{% url 'users-about' %}">Βοήθεια</a>
-						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-about' %}active{% endif %}" href="{% url 'users-about' %}">Επικοινωνία</a>
+						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-contact' %}active{% endif %}" href="{% url 'users-contact' %}">Επικοινωνία</a>
 					</div>
 					<!-- Navbar Right Side -->
 					<!--<form class="navbar-form navbar-left form-inline" action="/action_page.php">

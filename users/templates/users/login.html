@@ -1,21 +1,25 @@
 {% extends "users/base.html"%}
 {% load crispy_forms_tags %}
 {% block content %}
-	<div class="content-section">
-		<form method="POST">
-			{% csrf_token %}
-			<fieldset class="form-group">
-				<legend class="border-bottom mb-4">Σύνδεση</legend>
-				{{ form|crispy }}
-			</fieldset>
-			<div class="form-group">
-				<button class="btn btn-outline-info" type="submit">Σύνδεση</button>
+	<div class="row">
+		<div class="col-sm-4 mycontent-left"></div>
+		<div class="content-section col-sm-4">
+			<form method="POST">
+				{% csrf_token %}
+				<fieldset class="form-group">
+					<legend class="border-bottom mb-4">Σύνδεση</legend>
+					{{ form|crispy }}
+				</fieldset>
+				<div class="form-group">
+					<button class="btn btn-outline-info" type="submit">Σύνδεση</button>
+				</div>
+			</form>
+			<div class="border-top pt-3">
+				<small class="text muted">
+					Χρειάζεστε λογαριασμό?<a class="ml-2" href="{% url 'register' %}">Εγγραφείτε</a>
+				</small>
 			</div>
-		</form>
-		<div class="border-top pt-3">
-			<small class="text muted">
-				Χρειάζεστε λογαριασμό?<a class="ml-2" href="{% url 'register' %}">Εγγραφείτε</a>
-			</small>
 		</div>
+		<div class="col-sm-4 mycontent-right"></div>
 	</div>
 {% endblock content %}
