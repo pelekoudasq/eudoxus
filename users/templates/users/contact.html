@@ -1,25 +1,31 @@
 {% extends "users/base.html"%}
 {% load crispy_forms_tags %}
 {% block content %}
-	<div class="col-md-12">
 		<div class="content-section">
+			
 			<div class="border-bottom pt-3">
 				<p class="h4 text-center">Επικοινωνία</p>
 			</div>
-			<form method="post">
-			    {% csrf_token %}
-			    <fieldset class="form-group">
-					<p class="lead border-bottom mb-7 py-2">Επικοινωνήστε μαζί μας συμπληρώνοντας την φόρμα</p>
-				</fieldset>
-				{{ form|crispy }}
-			    <div class="form-group">
-					<button class="btn btn-outline-info" type="submit">Αποστολή</button>
+			<div class="row">
+				<div class="col-md-8">
+					<form method="post">
+					    {% csrf_token %}
+					    <fieldset class="form-group">
+							<p class="lead border-bottom mb-7 py-2">Επικοινωνήστε μαζί μας συμπληρώνοντας την φόρμα</p>
+						</fieldset>
+						{{ form|crispy }}
+					    <div class="form-group text-center">
+							<button class="btn btn-outline-info" type="submit">Αποστολή</button>
+						</div>
+					</form>
 				</div>
-			</form>
-			<div class="border-top pt-3">
-				<small class="text muted">
-					Εναλλακτικά μπορείτε να επικοινωνήσετε με το Γραφείο Αρωγής της δράσης στο τηλέφωνο <b>215 215 7850</b>. Ώρες λειτουργίας Δευτέρα με Παρασκευή <b>09:00 πμ - 17:00 μμ</b>.
-				</small>
+				<div class="col-md-4">	
+					<div class="border-left p-3 m-2">
+						<small class="text muted">
+							Εναλλακτικά μπορείτε να επικοινωνήσετε με το Γραφείο Αρωγής της δράσης στο τηλέφωνο <b>215 215 7850</b>. Ώρες λειτουργίας Δευτέρα με Παρασκευή <b>09:00 πμ - 17:00 μμ</b>.
+						</small>
+					</div>
+				</div>
 			</div>
 			<div class="border-top pt-3">
 				<nav class="small" aria-label="breadcrumb">
