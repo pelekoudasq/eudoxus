@@ -3,7 +3,8 @@
 System requirements
 -------------------
 
-* Python version 3.6 or newer
+* Python version 3.6 or later
+* Django version 2.1 or later
 
 Installation & Testing
 ----------------------
