@@ -17,8 +17,8 @@
 	<title>Εύδοξος</title>
 </head>
 <body>
-	<header class="site-header">
-		<nav class="navbar navbar-expand-lg navbar-light bg-steel sticky-top" id="top-nav">
+	<header class="site-header sticky-top">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-steel " id="top-nav">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle-top" aria-controls="navbarToggle-top" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 			</button>
@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</nav>	
-		<nav class="navbar navbar-expand-lg navbar-dark bg-steel ">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-steel">
 				<div class="container-fluid">
 					<a class="navbar-brand mr-4" href="{% url 'users-home' %}"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/eudoxus-logo.png' %}">Εύδοξος</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,10 +80,6 @@
 								<a class="dropdown-item" href="#">Οδηγός Γραμματείας</a>
 							</div>
 						</li>
-						<!--<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-announcements' %}active{% endif %}" href="{% url 'users-announcements' %}">Ανακοινώσεις</a>
-						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-exchange' %}active{% endif %}" href="{% url 'users-exchange' %}">Ανταλλαγή</a>
-						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-about' %}active{% endif %}" href="{% url 'users-about' %}">Βοήθεια</a>
-						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-contact' %}active{% endif %}" href="{% url 'users-contact' %}">Επικοινωνία</a>-->
 					</div>
 					<!-- Navbar Right Side -->
 					<!--<form class="navbar-form navbar-left form-inline" action="/action_page.php">
@@ -91,8 +87,7 @@
 				        <input type="text" class="form-control" placeholder="Αναζήτηση">
 				      </div>
 				    </form>-->
-
-					<div class="navbar-nav">
+					<div class="navbar-nav ">
 						<form class="form-inline">
 							<input class="form-control mr-sm-2" type="search" placeholder="Αναζήτηση" aria-label="Search">
 							<button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
@@ -117,6 +112,65 @@
 			</div>
 		</div>
 	</main>
+	<footer class="page-footer font-small blue pt-4">
+		<div class="container-fluid text-center text-md-left">
+			<div class="row">
+				<div class="col-md-2 mt-md-0 mt-2">
+					<h6 class="text-uppercase">Ευδοξος</h6>
+						<p>Ηλεκτρονική Υπηρεσία Ολοκληρωμένης Διαχείρησης Συγγραμμάτων.</p>
+				</div>
+				<hr class="clearfix w-100 d-md-none pb-3">
+				<div class="col-md-2 mb-md-0 mb-2">
+					<h6 class="text-uppercase">Φοιτητης</h6>
+					<ul class="list-unstyled">
+						<li><a href="#!">Δήλωση</a></li>
+						<li><a href="{% url 'users-exchange' %}">Ανταλλαγή</a></li>
+						<li><a href="#!">Συγγράμματα</a></li>
+					</ul>
+				</div>
+				<div class="col-md-2 mb-md-0 mb-2">
+					<h6 class="text-uppercase">εκδοτης</h6>
+					<ul class="list-unstyled">
+						<li><a href="#!">Διαχείρηση Συγγραμμάτων</a></li>
+						<li><a href="#!">Οδηγός Εκδότη</a></li>
+					</ul>
+				</div>
+				<div class="col-md-2 mb-md-0 mb-2">
+					<h6 class="text-uppercase">σημειο διανομης</h6>
+					<ul class="list-unstyled">
+						<li><a href="#!">Παράδοση Συγγραμμάτων</a></li>
+						<li><a href="#!">Οδηγός Σημείου Διανομής</a></li>
+					</ul>
+				</div>
+				<div class="col-md-2 mb-md-0 mb-2">
+					<h6 class="text-uppercase">γραμματεια</h6>
+					<ul class="list-unstyled">
+						<li><a href="#!">Πρόγραμμα Σπουδών</a></li>
+						<li><a href="#!">Οδηγός Γραμματείας</a></li>
+					</ul>
+				</div>
+				<div class="col-md-2 mb-md-0 mb-2">
+					<h6 class="text-uppercase">Χρησιμα</h6>
+					<ul class="list-unstyled">
+						<li><a href="#!">Ανακοινώσεις</a></li>
+						<li><a href="#!">Βοήθεια</a></li>
+						<li><a href="#!">Επικοινωνία</a></li>
+						<div class="dropdown-divider"></div>
+						{% if user.is_authenticated %}
+							<li><a href="{% url 'profile' %}">Προφίλ</a></li>
+							<li><a href="{% url 'logout' %}">Αποσύνδεση</a></li>
+						{% else %}
+							<li><a href="{% url 'login' %}">Σύνδεση</a></li>
+							<li><a href="{% url 'register' %}">Εγγραφή</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright text-center py-3">© 2018 Copyright:
+			<a href="https://grnet.gr/"> GRnet@education</a>
+		</div>
+	</footer>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

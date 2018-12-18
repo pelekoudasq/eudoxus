@@ -17,6 +17,10 @@ main{
   margin-top: 20px;
 }
 
+footer {
+  background-color: #D7D7D7!important;
+}
+
 .nav-tabs {
   font-size:  17px !important;
 }
@@ -26,7 +30,7 @@ main{
 }
 
 #top-nav {
-  background-color: gray;
+  background-color: #24292e;
   font-size: 14px;
   height: 20;
   padding: 3px;
