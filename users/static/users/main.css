@@ -17,6 +17,10 @@ main{
   margin-top: 20px;
 }
 
+.nav-tabs {
+  font-size:  17px !important;
+}
+
 .ml-auto {
   left: auto !important;
 }
@@ -26,6 +30,10 @@ main{
   font-size: 14px;
   height: 20;
   padding: 3px;
+}
+
+.nav .nav-item .nav-link .active{
+  color: black !important;
 }
 
 .bg-steel {
