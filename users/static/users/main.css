@@ -82,3 +82,21 @@ footer {
 .btn-toolbar{
   text-align: center;
 }​
+
+#drop2 {
+    -webkit-transition: all 0.3s  !important;
+    -moz-transition: all 0.3s  !important;
+    -ms-transition: all 0.3s  !important;
+    -o-transition: all 0.3s  !important;
+    transition: all 0.3s  !important;
+
+    max-height: 0  !important;
+    display: block  !important;
+    overflow: hidden  !important;
+    opacity: 0  !important;
+}
+
+.dropdown:hover .nav-link .dropdown-menu {
+    max-height: 200px  !important;
+    opacity: 1  !important;
+}
