@@ -1,0 +1,45 @@
+{% extends "users/base.html"%}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+	<div class="content-section">
+		<div class="col-md-12">
+			<div class="border-bottom pt-3">
+				<p class="h4 text-center">Δήλωση Συγγραμμάτων</p>
+			</div>
+			<br>
+			<br>		
+			<form class="form-group" method="POST">
+				{% csrf_token %}
+				{{ wizard.management_form }}
+				<fieldset class="form-group">
+					{{ wizard.form|crispy }}
+				</fieldset>
+				<div class="form-group text-center">
+					<button class="btn btn-info btn-block" type="submit">Συνέχεια</button>
+				</div>
+			</form>
+			<br>
+			<br>
+			<br>
+			<div class="border-top pt-3">
+				<nav class="small" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="{% url 'users-home' %}">Αρχική</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Ανταλλαγή</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+{% endblock content %}

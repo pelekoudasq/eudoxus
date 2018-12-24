@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from formtools.wizard.views import SessionWizardView
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import UserRegisterForm, ContactForm
+from .forms import UserRegisterForm, ContactForm, UniversityForm
+from users.models import University, Department, Class, Book
 # Create your views here.
 
 def home(request):
@@ -25,10 +27,36 @@ def contact(request):
 def exchange(request):
 	return render(request, 'users/exchange.html', {'title': 'Exchange'})
 
+def order(request):
+	#universities = University.objects.all()
+	form = UniversityForm()
+	if request.method == 'POST':
+		form = UniversityForm(request.POST)
+		if form.is_valid():
+			selected_uni = form.cleaned_data.get('university')
+			messages.success(request, f'{selected_uni} επιλέχθηκε')
+			return redirect('users-home')
+	return render(request, 'users/order.html', {'form':form}, {'title': 'Order'})
+
+class OrderWizard(SessionWizardView):
+	template_name = "users/order.html"
+
+	def done(self, form_list, **kwargs):
+		form_data = process_form_data(form_list)
+		# messages.success(request, f'{form_data} επιλέχθηκαν')
+		return redirect('users-home')
+
+def process_form_data(form_list):
+	form_data = [form.cleaned_data for form in form_list]
+	return form_data
+
+
+
+
+
 @login_required
 def profile(request):
 	return render(request, 'users/profile.html')
-
 
 def register(request):
 	if request.method == 'POST':
