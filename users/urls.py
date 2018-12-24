@@ -1,13 +1,19 @@
 from django.urls import path
 from . import views
 from . import forms
+from formtools.wizard.views import SessionWizardView
+
+initial = {
+	#'1': {views.OrderWizard.get_cleaned_data_for_step(0)},
+}
 
 named_order_forms = (
     ('unidata', forms.UniversityForm),
-    ('deptsata', forms.DepartmentForm),
+    ('deptdata', forms.DepartmentForm),
+    ('semdata', forms.SemesterPicker),
 )
 
-order_wizard = views.OrderWizard.as_view(named_order_forms)
+order_wizard = views.OrderWizard.as_view(named_order_forms, initial_dict=initial)
 
 urlpatterns = [
     path('', views.home, name='users-home'),

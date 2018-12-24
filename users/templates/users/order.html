@@ -19,6 +19,11 @@
 					<button class="btn btn-info btn-block" type="submit">Συνέχεια</button>
 				</div>
 			</form>
+			{% if wizard.steps.prev %}
+			<div class="form-group text-left">
+				<button class="btn btn-outline-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Προηγούμενο</button>
+			</div>
+			{% endif %}
 			<br>
 			<br>
 			<br>
