@@ -1,6 +1,7 @@
 {% extends "users/base.html"%}
 {% load crispy_forms_tags %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 	<div class="content-section">
 		<div class="col-md-12">
@@ -8,7 +9,8 @@
 				<p class="h4 text-center">Δήλωση Συγγραμμάτων</p>
 			</div>
 			<br>
-			<br>		
+			<br>
+			<p>Βήμα {{ wizard.steps.step1 }}/{{ wizard.steps.count }}</p>	
 			<form class="form-group" method="POST">
 				{% csrf_token %}
 				{{ wizard.management_form }}
@@ -18,12 +20,10 @@
 				<div class="form-group text-center">
 					<button class="btn btn-info btn-block" type="submit">Συνέχεια</button>
 				</div>
+				{% if wizard.steps.prev %}
+					<button class="btn btn-outline-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Προηγούμενο</button>
+				{% endif %}
 			</form>
-			{% if wizard.steps.prev %}
-			<div class="form-group text-left">
-				<button class="btn btn-outline-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Προηγούμενο</button>
-			</div>
-			{% endif %}
 			<br>
 			<br>
 			<br>
@@ -46,5 +46,4 @@
 	<br>
 	<br>
 	<br>
-
 {% endblock content %}

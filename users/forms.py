@@ -1,14 +1,22 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from users.models import University, Department, Order
+from users.models import University, Department, Order, Class
+
+USER_TYPES = (
+	(1, 'Φοιτητής'),
+	(2, 'Εκδότης'),
+	(3, 'Σημείο Διανομής'),
+	(4, 'Γραμματεία'),
+)
 
 class UserRegisterForm(UserCreationForm):
 	email = forms.EmailField()
+	user_type = forms.ChoiceField(choices=USER_TYPES, required=True)
 
 	class Meta:
 		model = User
-		fields = ['username', 'email', 'password1', 'password2']
+		fields = ['username', 'email', 'user_type', 'password1', 'password2']
 
 	def __init__(self, *args, **kwargs):
 		super(UserRegisterForm, self).__init__(*args, **kwargs)
@@ -31,8 +39,8 @@ class ContactForm(forms.Form):
 		self.fields['message'].label = "Περιεχόμενο:"
 
 class UniversityChoiceField(forms.ModelChoiceField):
-    def label_from_instance(self, obj):
-        return obj.title
+	def label_from_instance(self, obj):
+		return obj.title
 
 class UniversityForm(forms.Form):
 	university = UniversityChoiceField(queryset = University.objects.all())
@@ -49,16 +57,16 @@ class DepartmentForm(forms.Form):
 		self.fields['department'].label = "Επιλέξτε Τμήμα:"
 
 SEMESTERS = (
-	(0, '1ο Εξάμηνο'),
-	(1, '2ο Εξάμηνο'),
-	(2, '3ο Εξάμηνο'),
-	(3, '4ο Εξάμηνο'),
-	(4, '5ο Εξάμηνο'),
-	(5, '6ο Εξάμηνο'),
-	(6, '7ο Εξάμηνο'),
-	(7, '8ο Εξάμηνο'),
-	(8, '9ο Εξάμηνο'),
-	(9, '10ο Εξάμηνο'),
+	(1, '1ο Εξάμηνο'),
+	(2, '2ο Εξάμηνο'),
+	(3, '3ο Εξάμηνο'),
+	(4, '4ο Εξάμηνο'),
+	(5, '5ο Εξάμηνο'),
+	(6, '6ο Εξάμηνο'),
+	(7, '7ο Εξάμηνο'),
+	(8, '8ο Εξάμηνο'),
+	(9, '9ο Εξάμηνο'),
+	(10, '10ο Εξάμηνο'),
 )
 
 class SemesterPicker(forms.Form):
@@ -68,8 +76,16 @@ class SemesterPicker(forms.Form):
 		super(SemesterPicker, self).__init__(*args, **kwargs)
 		self.fields['semester'].label = "Επιλέξτε Εξάμηνα:"
 
+class ClassChoiceField(forms.ModelMultipleChoiceField):
+	def label_from_instance(self, obj):
+		return obj.title
+
 class ClassForm(forms.Form):
-	lesson = forms.MultipleChoiceField()
+	lesson = ClassChoiceField(queryset=Class.objects.all(), required=True, widget=forms.CheckboxSelectMultiple)
+
+	def __init__(self, *args, **kwargs):
+		super(ClassForm, self).__init__(*args, **kwargs)
+		self.fields['lesson'].label = "Επιλέξτε Μαθήματα:"
 
 
 # class OrderForm(forms.ModelForm):

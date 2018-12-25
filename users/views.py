@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group, Permission
 from formtools.wizard.views import SessionWizardView
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -57,11 +58,12 @@ class OrderWizard(SessionWizardView):
 			step = self.steps.current
 
 		if step == 'deptdata':
-			prev_data = self.get_cleaned_data_for_step('unidata')
-			prev_data = prev_data['university']
-			prev_data = prev_data.id
-			print ("here", step, prev_data)
+			prev_data = self.get_cleaned_data_for_step('unidata')['university'].id
 			form.fields['department'].queryset = Department.objects.filter(uni=prev_data)
+		elif step == 'classes':
+			dept = self.get_cleaned_data_for_step('deptdata')['department'].id
+			sems = self.get_cleaned_data_for_step('semdata')['semester']
+			form.fields['lesson'].queryset = Class.objects.filter(dept=dept, semester__in=sems)
 		return form
 	
 	# def get_form_kwargs(self, step):
@@ -93,7 +95,11 @@ def register(request):
 	if request.method == 'POST':
 		form = UserRegisterForm(request.POST)
 		if form.is_valid():
-			form.save()
+			user = form.save()
+			group_selected = form.cleaned_data.get('user_type')
+			print(group_selected)
+			group = Group.objects.get(id=group_selected)
+			user.groups.add(group)
 			username = form.cleaned_data.get('username')
 			messages.success(request, f'{username}, ο λογαριασμός σας δημιουργήθηκε με επιτυχία! Συνδεθείτε για να συνεχίσετε')
 			return redirect('login')
