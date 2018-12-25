@@ -16,7 +16,8 @@ def home(request):
 
 def about(request):
 	return render(request, 'users/about.html', {'title': 'About'})
-
+	
+@login_required
 def publisher(request):
 	return render(request, 'users/publisher.html', {'title': 'Publisher'})
 
@@ -26,6 +27,7 @@ def announcements(request):
 def contact(request):
 	return render(request, 'users/contact.html', {'title': 'Contact'})
 
+@login_required
 def exchange(request):
 	return render(request, 'users/exchange.html', {'title': 'Exchange'})
 
