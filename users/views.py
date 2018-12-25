@@ -16,7 +16,7 @@ def home(request):
 
 def about(request):
 	return render(request, 'users/about.html', {'title': 'About'})
-	
+
 @login_required
 def publisher(request):
 	return render(request, 'users/publisher.html', {'title': 'Publisher'})
@@ -46,6 +46,11 @@ class OrderWizard(SessionWizardView):
 			dept = self.get_cleaned_data_for_step('deptdata')['department'].id
 			sems = self.get_cleaned_data_for_step('semdata')['semester']
 			form.fields['lesson'].queryset = Class.objects.filter(dept=dept, semester__in=sems)
+		elif step == 'books':
+			classes = self.get_cleaned_data_for_step('classes')['lesson']
+			for cl in classes:
+				print(cl.books.all())
+				form.fields['book'].queryset = cl.books.all()
 		return form
 	
 	def done(self, form_list, **kwargs):

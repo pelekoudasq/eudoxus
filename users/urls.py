@@ -12,6 +12,7 @@ named_order_forms = (
     ('deptdata', forms.DepartmentForm),
     ('semdata', forms.SemesterPicker),
     ('classes', forms.ClassForm),
+    ('books', forms.BookForm)
 )
 
 order_wizard = views.OrderWizard.as_view(named_order_forms, initial_dict=initial)

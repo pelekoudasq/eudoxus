@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from users.models import University, Department, Order, Class
+from users.models import University, Department, Order, Class, Book
 
 USER_TYPES = (
 	(1, 'Φοιτητής'),
@@ -86,6 +86,20 @@ class ClassForm(forms.Form):
 	def __init__(self, *args, **kwargs):
 		super(ClassForm, self).__init__(*args, **kwargs)
 		self.fields['lesson'].label = "Επιλέξτε Μαθήματα:"
+
+class BookChoiceField(forms.ModelMultipleChoiceField):
+	def label_from_instance(self, obj):
+		return obj.title+", "+obj.author
+
+class BookForm(forms.Form):
+	book = BookChoiceField(queryset = Book.objects.all(), required=True, widget=forms.CheckboxSelectMultiple)
+
+	def __init__(self, *args, **kwargs):
+		super(BookForm, self).__init__(*args, **kwargs)
+		self.fields['book'].label = "Επιλέξτε Συγγράμματα:"
+
+
+
 
 
 # class OrderForm(forms.ModelForm):
