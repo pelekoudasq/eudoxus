@@ -19,6 +19,7 @@ order_wizard = views.OrderWizard.as_view(named_order_forms, initial_dict=initial
 urlpatterns = [
     path('', views.home, name='users-home'),
     path('about/', views.about, name='users-about'),
+    path('publisher/', views.publisher, name='users-publisher'),
     path('exchange/', views.exchange, name='users-exchange'),
     path('announcements/', views.announcements, name='users-announcements'),
     path('contact/', views.contact, name='users-contact'),

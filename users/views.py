@@ -12,14 +12,13 @@ logr = logging.getLogger(__name__)
 # Create your views here.
 
 def home(request):
-	context = {
-		#'posts': Post.objects.all()
-	}
-	return render(request, 'users/home.html', context)
-
+	return render(request, 'users/home.html', {'title': 'Home'})
 
 def about(request):
 	return render(request, 'users/about.html', {'title': 'About'})
+
+def publisher(request):
+	return render(request, 'users/publisher.html', {'title': 'Publisher'})
 
 def announcements(request):
 	return render(request, 'users/announcements.html', {'title': 'Announcements'})
@@ -30,27 +29,8 @@ def contact(request):
 def exchange(request):
 	return render(request, 'users/exchange.html', {'title': 'Exchange'})
 
-# def order(request):
-# 	#universities = University.objects.all()
-# 	form = UniversityForm()
-# 	if request.method == 'POST':
-# 		form = UniversityForm(request.POST)
-# 		if form.is_valid():
-# 			selected_uni = form.cleaned_data.get('university')
-# 			messages.success(request, f'{selected_uni} επιλέχθηκε')
-# 			return redirect('users-home')
-# 	return render(request, 'users/order.html', {'form':form}, {'title': 'Order'})
-
 class OrderWizard(SessionWizardView):
 	template_name = "users/order.html"
-
-	# def get_context_data(self, form, **kwargs):
-	# 	context = super(OrderWizard, self).get_context_data(form=form, **kwargs)
-	# 	if self.steps.current == '1':
-	# 		prev_data = self.get_cleaned_data_for_step('0')
-	# 		logr.debug(prev_data)
-	# 		context.update({'department': Department.objects.filter(uni=prev_data.pk)})
-	# 	return context
 
 	def get_form(self, step=None, data=None, files=None):
 		form = super(OrderWizard, self).get_form(step, data, files)
@@ -66,14 +46,6 @@ class OrderWizard(SessionWizardView):
 			form.fields['lesson'].queryset = Class.objects.filter(dept=dept, semester__in=sems)
 		return form
 	
-	# def get_form_kwargs(self, step):
-	# 	kwargs = super(OrderWizard, self).get_form_kwargs()
-	# 	print("---> get_form_kwards", self.steps.current, self.get_cleaned_data_for_step('0'))
-	# 	if self.steps.current == '1':
-	# 		print("---> entered deptdata")
-	# 		obj = self.get_cleaned_data_for_step('0')
-	# 		kwargs['filter'] = obj.id
-	# 	return kwargs
 	def done(self, form_list, **kwargs):
 		form_data = process_form_data(form_list)
 		# messages.success(request, f'{form_data} επιλέχθηκαν')
@@ -82,6 +54,9 @@ class OrderWizard(SessionWizardView):
 def process_form_data(form_list):
 	form_data = [form.cleaned_data for form in form_list]
 	return form_data
+
+
+
 
 
 

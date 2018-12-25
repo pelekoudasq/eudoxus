@@ -8,9 +8,47 @@
 			<div class="border-bottom pt-3">
 				<p class="h4 text-center">Δήλωση Συγγραμμάτων</p>
 			</div>
-			<br>
-			<br>
-			<p>Βήμα {{ wizard.steps.step1 }}/{{ wizard.steps.count }}</p>	
+			<!-- Horizontal Steppers -->
+			<div class="row bs-wizard" style="border-bottom:0;">        
+                <div class="col-md-2 bs-wizard-step {% if wizard.steps.step1 > 1 %}complete{% elif wizard.steps.step1 == 1 %}active{% else %}disabled{% endif %}">
+                  <div class="text-center bs-wizard-stepnum">Βήμα 1</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Επιλογή Ιδρύματος</div>
+                </div>
+                <div class="col-md-2 bs-wizard-step {% if wizard.steps.step1 > 2 %}complete{% elif wizard.steps.step1 == 2 %}active{% else %}disabled{% endif %}"><!-- complete -->
+                  <div class="text-center bs-wizard-stepnum">Βήμα 2</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Επιλογή Τμήματος</div>
+                </div>
+                <div class="col-md-2 bs-wizard-step {% if wizard.steps.step1 > 3 %}complete{% elif wizard.steps.step1 == 3 %}active{% else %}disabled{% endif %}"><!-- complete -->
+                  <div class="text-center bs-wizard-stepnum">Βήμα 3</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Επιλογή Εξαμήνων</div>
+                </div>
+                <div class="col-md-2 bs-wizard-step {% if wizard.steps.step1 > 4 %}complete{% elif wizard.steps.step1 == 4 %}active{% else %}disabled{% endif %}"><!-- active -->
+                  <div class="text-center bs-wizard-stepnum">Βήμα 4</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Επιλογή Μαθημάτων</div>
+                </div>
+                <div class="col-md-2 bs-wizard-step {% if wizard.steps.step1 > 5 %}complete{% elif wizard.steps.step1 == 5 %}active{% else %}disabled{% endif %}"><!-- active -->
+                  <div class="text-center bs-wizard-stepnum">Βήμα 5</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Επιλογή Συγγραμμάτων</div>
+                </div>
+                <div class="col-md-2 bs-wizard-step {% if wizard.steps.step1 > 6 %}complete{% elif wizard.steps.step1 == 6 %}active{% else %}disabled{% endif %}"><!-- active -->
+                  <div class="text-center bs-wizard-stepnum">Βήμα 6</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <a href="#" class="bs-wizard-dot"></a>
+                  <div class="bs-wizard-info text-center">Οριστικοποίηση</div>
+                </div>
+            </div>
+            <br>
+			<!-- /.Horizontal Steppers -->
 			<form class="form-group" method="POST">
 				{% csrf_token %}
 				{{ wizard.management_form }}
@@ -20,10 +58,11 @@
 				<div class="form-group text-center">
 					<button class="btn btn-info btn-block" type="submit">Συνέχεια</button>
 				</div>
-				{% if wizard.steps.prev %}
+				<!-- {% if wizard.steps.prev %}
 					<button class="btn btn-outline-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Προηγούμενο</button>
-				{% endif %}
+				{% endif %} -->
 			</form>
+			<br>
 			<br>
 			<br>
 			<br>
@@ -31,7 +70,7 @@
 				<nav class="small" aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="{% url 'users-home' %}">Αρχική</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Ανταλλαγή</li>
+						<li class="breadcrumb-item active" aria-current="page">Δήλωση Συγγραμμάτων</li>
 					</ol>
 				</nav>
 			</div>
@@ -46,4 +85,18 @@
 	<br>
 	<br>
 	<br>
+	<!-- Stepper CSS -->
+	<link href="css/addons-pro/stepper.css" rel="stylesheet">
+	<!-- Stepper CSS - minified-->
+	<link href="css/addons-pro/stepper.min.css" rel="stylesheet">
+
+	<!-- Stepper JavaScript -->
+	<script type="text/javascript" src="js/addons-pro/stepper.js"></script>
+	<!-- Stepper JavaScript - minified -->
+	<script type="text/javascript" src="js/addons-pro/stepper.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.stepper').mdbStepper();
+		})
+	</script>
 {% endblock content %}

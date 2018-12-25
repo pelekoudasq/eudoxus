@@ -1,0 +1,22 @@
+{% extends "users/base.html"%}
+{% load static %}
+{% block content %}
+	<div class="content-section">
+		<div class="col-md-12">
+			<div class="border-bottom pt-3">
+				<p class="h4 text-center">Εφαρμογή Εκδότη</p>
+			</div>
+			<div class="text-center my-4">
+				<img src="{% static '/1.png' %}" class="rounded" alt="...">
+			</div>
+			<div class="border-top pt-3">
+				<nav class="small" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="{% url 'users-home' %}">Αρχική</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Εφαρμογή Εκδότη</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
