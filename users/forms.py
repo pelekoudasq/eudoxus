@@ -92,7 +92,7 @@ class BookChoiceField(forms.ModelMultipleChoiceField):
 		return obj.title+", "+obj.author
 
 class BookForm(forms.Form):
-	book = BookChoiceField(queryset = Book.objects.all(), required=True, widget=forms.CheckboxSelectMultiple)
+	book = BookChoiceField(queryset = Book.objects.all(), required=True, widget=forms.RadioSelect)
 
 	def __init__(self, *args, **kwargs):
 		super(BookForm, self).__init__(*args, **kwargs)
