@@ -1,0 +1,42 @@
+{% extends "users/base.html"%}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+	<div class="content-section">
+		<div class="col-md-12">
+			<div class="border-bottom pt-3">
+				<p class="h4 text-center">Αναζήτηση Συγγραμμάτων</p>
+			</div>
+			<form class="form-inline justify-content-center my-4" method="GET" action=''>
+				<input class="form-control w-75 shadow-sm mb-0 bg-white rounded" type="search" name='q' placeholder="Αναζήτηση" aria-label="Search" value="{{ request.GET.q }}">
+				<button class="btn btn-info mx-2 shadow mb-0" type="submit" value="Search">Αναζήτηση</i></button>
+			</form>
+			{% if requested %}
+				<p>Βρέθηκαν {{ len }} αποτελέσματα για την αναζήτησή σας <mark>{{ requested }}</mark>:</p>
+				<br>
+				{% for book in results %}
+					<h4>{{ book.title }}, <small class="text-muted">{{ book.author }}</small></h4>
+				{% endfor %}
+				{% if len < 1 %}
+					<br>
+					<br>
+					<br>
+				{% elif len < 2 %}
+					<br>
+					<br>
+				{% endif %}
+			{% endif %}
+			<br>
+
+			<div class="border-top pt-3">
+				<nav class="small" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="{% url 'users-home' %}">Αρχική</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Αναζήτηση</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

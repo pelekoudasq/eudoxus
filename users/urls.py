@@ -24,5 +24,6 @@ urlpatterns = [
     path('exchange/', views.exchange, name='users-exchange'),
     path('announcements/', views.announcements, name='users-announcements'),
     path('contact/', views.contact, name='users-contact'),
+    path('search/', views.search, name='users-search'),
     path('order/', order_wizard, name='users-order')
 ]

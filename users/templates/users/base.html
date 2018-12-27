@@ -47,7 +47,7 @@
 					<div class="navbar-nav mr-auto">
 						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-home' %}active{% endif %}" href="{% url 'users-home' %}">Αρχική</a>
 						<li class="nav-item dropdown" id="drop1">
-							<a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Φοιτητής</a>
+							<a class="nav-link {% if request.resolver_match.url_name == 'users-order' or request.resolver_match.url_name == 'users-exchange' %}active{% endif %}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Φοιτητής</a>
 							<div class="dropdown-menu" id="drop2">
 								<a class="dropdown-item" href="{% url 'users-order' %}">Δήλωση</a>
 								<div class="dropdown-divider"></div>
@@ -87,12 +87,14 @@
 				        <input type="text" class="form-control" placeholder="Αναζήτηση">
 				      </div>
 				    </form>-->
+				    {% if request.resolver_match.url_name == 'users-home' %}
 					<div class="navbar-nav ">
-						<form class="form-inline">
-							<input class="form-control mr-sm-2" type="search" placeholder="Αναζήτηση" aria-label="Search">
-							<button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+						<form class="form-inline" method="GET" action=''>
+							<input class="form-control mr-sm-2" type="search" name='q' placeholder="Αναζήτηση" aria-label="Search" value="{{ request.GET.q }}">
+							<button class="btn btn-outline-info my-2 my-sm-0" type="submit" value="Search"><i class="fa fa-search"></i></button>
 						</form>
 					</div>
+					{% endif %}
 				</div>
 			</div>
 		</nav>

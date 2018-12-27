@@ -57,10 +57,10 @@
 					{{ wizard.form|crispy }}
 				</fieldset>
 				<div class="form-group text-center">
-					<button class="btn btn-info btn-block" type="submit">Συνέχεια</button>
+					<button class="btn btn-info btn-block shadow mb-0" type="submit">Συνέχεια</button>
 				</div>
 				{% if wizard.steps.prev %}
-					<button class="btn btn-outline-info" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Προηγούμενο</button>
+					<button class="btn btn-outline-info shadow-sm mb-0" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Προηγούμενο</button>
 				{% endif %}
 			</form>
 			<br>
@@ -77,10 +77,6 @@
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
-	<br>
-	<br>
 	<br>
 	<br>
 	<br>

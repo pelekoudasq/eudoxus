@@ -27,6 +27,26 @@ class UserRegisterForm(UserCreationForm):
 		self.fields['password2'].label = "Επαλήθευση Κωδικού Πρόσβασης"
 		self.fields['password2'].help_text = "Εισάγετε τον ίδιο κωδικό με πριν, για επαλήθευση"
 
+class UpdateProfile(forms.ModelForm):
+	email = forms.EmailField()
+
+	class Meta:
+		model = User
+		fields = ['username', 'email']
+
+	def save(self, commit=True):
+		user = super(UserRegisterForm, self).save(commit=False)
+
+		if commit:
+			user.save()
+
+		return user
+
+	def __init__(self, *args, **kwargs):
+		super(UpdateProfile, self).__init__(*args, **kwargs)
+		self.fields['username'].help_text = None
+		self.fields['email'].label = "Διεύθυνση Email"
+
 class ContactForm(forms.Form):
 	from_email = forms.EmailField(required=True)
 	subject = forms.CharField(required=True)
