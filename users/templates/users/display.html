@@ -1,0 +1,80 @@
+{% extends "users/base.html"%}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+	<div class="content-section">
+		<div class="col-md-12">
+			<div class="border-bottom pt-3">
+				<p class="h4 text-center">Συγγράμματα</p>
+			</div>
+			<!-- Horizontal Steppers -->
+			<form class="form-group" method="POST">
+			<div class="row bs-wizard" style="border-bottom:0;">        
+                <div class="col-md-3 bs-wizard-step {% if wizard.steps.step1 > 1 %}complete{% elif wizard.steps.step1 == 1 %}active{% else %}disabled{% endif %}">
+                  <div class="text-center bs-wizard-stepnum">Βήμα 1</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <button class="bs-wizard-dot" name="wizard_goto_step" value="unidata"></button>
+                  <div class="bs-wizard-info text-center">Επιλογή Ιδρύματος</div>
+                </div>
+                <div class="col-md-3 bs-wizard-step {% if wizard.steps.step1 > 2 %}complete{% elif wizard.steps.step1 == 2 %}active{% else %}disabled{% endif %}"><!-- complete -->
+                  <div class="text-center bs-wizard-stepnum">Βήμα 2</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <button class="bs-wizard-dot" name="wizard_goto_step" value="deptdata"></button>
+                  <div class="bs-wizard-info text-center">Επιλογή Τμήματος</div>
+                </div>
+                <div class="col-md-3 bs-wizard-step {% if wizard.steps.step1 > 3 %}complete{% elif wizard.steps.step1 == 3 %}active{% else %}disabled{% endif %}"><!-- active -->
+                  <div class="text-center bs-wizard-stepnum">Βήμα 3</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <button class="bs-wizard-dot" name="wizard_goto_step" value="classes"></button>
+                  <div class="bs-wizard-info text-center">Επιλογή Μαθήματος</div>
+                </div>
+                <div class="col-md-3 bs-wizard-step {% if wizard.steps.step1 == 4 %}active{% else %}disabled{% endif %}"><!-- active -->
+                  <div class="text-center bs-wizard-stepnum">Βήμα 4</div>
+                  <div class="progress"><div class="progress-bar"></div></div>
+                  <button class="bs-wizard-dot" name="wizard_goto_step" value="books"></button>
+                  <div class="bs-wizard-info text-center">Συγγράμματα</div>
+                </div>
+            </div>
+            <br>
+			<!-- /.Horizontal Steppers -->
+			
+				{% csrf_token %}
+				{{ wizard.management_form }}
+				<fieldset class="form-group">
+					{{ wizard.form|crispy }}
+				</fieldset>
+				{% if wizard.steps.step1 != 4 %}
+				<div class="form-group text-center">
+					<button class="btn btn-info btn-block shadow mb-0" type="submit">Συνέχεια</button>
+				</div>
+				{% else %}
+				<div class="form-group text-center">
+					<button class="btn btn-info btn-block shadow mb-0" name="wizard_goto_step" value="unidata">Δοκιμάστε με διαφορετικά πεδία</button>
+				</div>
+				<div class="form-group text-center">
+					<a class="btn btn-outline-info btn-block shadow mb-0" href="{% url 'users-order' %}">Δήλωση Συγγραμμάτων</a>
+				</div>
+				{% endif %}
+				{% if wizard.steps.prev and wizard.steps.step1 != 4 %}
+					<button class="btn btn-outline-info shadow-sm mb-0" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Προηγούμενο</button>
+				{% endif %}
+			</form>
+			<br>
+			<br>
+			<div class="border-top pt-3">
+				<nav class="small" aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="{% url 'users-home' %}">Αρχική</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Συγγράμματα</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+{% endblock content %}

@@ -53,7 +53,7 @@
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{% url 'users-exchange' %}">Ανταλλαγή</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="{% url 'users-order' %}">Συγγράμματα</a>
+								<a class="dropdown-item" href="{% url 'users-display' %}">Συγγράμματα</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown" id="drop1">
@@ -110,7 +110,6 @@
 					{% endfor %}
 				{% endif %}
 				{% block content %}{% endblock %}
-				
 			</div>
 		</div>
 	</main>
@@ -127,7 +126,7 @@
 					<ul class="list-unstyled">
 						<li><a href="{% url 'users-order' %}">Δήλωση</a></li>
 						<li><a href="{% url 'users-exchange' %}">Ανταλλαγή</a></li>
-						<li><a href="{% url 'users-order' %}">Συγγράμματα</a></li>
+						<li><a href="{% url 'users-display' %}">Συγγράμματα</a></li>
 					</ul>
 				</div>
 				<div class="col-md-2 mb-md-0 mb-2">

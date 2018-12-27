@@ -37,6 +37,33 @@ def contact(request):
 def exchange(request):
 	return render(request, 'users/exchange.html', {'title': 'Exchange'})
 
+
+class DisplayWizard(SessionWizardView):
+	template_name = "users/display.html"
+
+	def get_form(self, step=None, data=None, files=None):
+		form = super(DisplayWizard, self).get_form(step, data, files)
+		if step is None:
+			step = self.steps.current
+
+		if step == 'deptdata':
+			prev_data = self.get_cleaned_data_for_step('unidata')['university'].id
+			form.fields['department'].queryset = Department.objects.filter(uni=prev_data)
+		elif step == 'classes':
+			dept = self.get_cleaned_data_for_step('deptdata')['department'].id
+			form.fields['lesson'].queryset = Class.objects.filter(dept=dept)
+		elif step == 'books':
+			classes = self.get_cleaned_data_for_step('classes')['lesson']
+			form.fields['book'].queryset = classes.books.all()
+			form.fields['book'].widget.attrs['readonly'] = "readonly"
+		return form
+
+	def done(self, form_list, **kwargs):
+		form_data = process_form_data(form_list)
+		# messages.success(request, f'{form_data} επιλέχθηκαν')
+		return redirect('profile')
+
+
 class OrderWizard(SessionWizardView):
 	template_name = "users/order.html"
 
@@ -102,7 +129,6 @@ def register(request):
 		if form.is_valid():
 			user = form.save()
 			group_selected = form.cleaned_data.get('user_type')
-			print(group_selected)
 			group = Group.objects.get(id=group_selected)
 			user.groups.add(group)
 			username = form.cleaned_data.get('username')

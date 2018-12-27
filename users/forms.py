@@ -107,6 +107,14 @@ class ClassForm(forms.Form):
 		super(ClassForm, self).__init__(*args, **kwargs)
 		self.fields['lesson'].label = "Επιλέξτε Μαθήματα:"
 
+#class for display only
+class ClassFormDisplay(forms.Form):
+	lesson = UniversityChoiceField(queryset=Class.objects.all())
+
+	def __init__(self, *args, **kwargs):
+		super(ClassFormDisplay, self).__init__(*args, **kwargs)
+		self.fields['lesson'].label = "Επιλέξτε Μάθημα:"
+
 class BookChoiceField(forms.ModelMultipleChoiceField):
 	def label_from_instance(self, obj):
 		return obj.title+", "+obj.author
