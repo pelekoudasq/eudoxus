@@ -23,6 +23,9 @@ def home(request):
 def about(request):
 	return render(request, 'users/about.html', {'title': 'About'})
 
+def student(request):
+	return render(request, 'users/student.html', {'title': 'Student'})
+
 @login_required
 def publisher(request):
 	return render(request, 'users/publisher.html', {'title': 'Publisher'})

@@ -47,13 +47,15 @@
 					<div class="navbar-nav mr-auto">
 						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-home' %}active{% endif %}" href="{% url 'users-home' %}">Αρχική</a>
 						<li class="nav-item dropdown" id="drop1">
-							<a class="nav-link {% if request.resolver_match.url_name == 'users-order' or request.resolver_match.url_name == 'users-exchange' %}active{% endif %}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Φοιτητής</a>
+							<a class="nav-link {% if request.resolver_match.url_name == 'users-order' or request.resolver_match.url_name == 'users-exchange' or request.resolver_match.url_name == 'users-student' %}active{% endif %}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Φοιτητής</a>
 							<div class="dropdown-menu" id="drop2">
 								<a class="dropdown-item" href="{% url 'users-order' %}">Δήλωση</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{% url 'users-exchange' %}">Ανταλλαγή</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{% url 'users-display' %}">Συγγράμματα</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{% url 'users-student' %}">Οδηγός Φοιτητή</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown" id="drop1">
@@ -99,9 +101,7 @@
 			</div>
 		</nav>
 	</header>
-	<main role="main" class="container">
-		<div class="row">
-			<div class="col-md-12">
+	<main role="main">
 				{% if messages %}
 					{% for message in messages %}
 						<div class="alert alert-{{ message.tags }}">
@@ -110,8 +110,6 @@
 					{% endfor %}
 				{% endif %}
 				{% block content %}{% endblock %}
-			</div>
-		</div>
 	</main>
 	<footer class="page-footer font-small blue pt-4">
 		<div class="container-fluid text-center text-md-left">

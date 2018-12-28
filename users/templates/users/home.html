@@ -1,7 +1,7 @@
 {% extends "users/base.html"%}
 {% load static %}
 {% block content %}
-	<div class="content-section">
+	<!-- <div class="content-section">
 		<div class="col-md-12">
 			<ul class="nav justify-content-center nav-tabs" id="myTab" role="tablist">
 			  <li class="nav-item">
@@ -104,6 +104,111 @@
 			  </div>
 			</div>
 		</div>
+	</div>-->
+	<div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="400000">
+		<ol class="carousel-indicators">
+			<li data-target="#carousel" data-slide-to="0" class="active"></li>
+			<li data-target="#carousel" data-slide-to="1"></li>
+			<li data-target="#carousel" data-slide-to="2"></li>
+			<li data-target="#carousel" data-slide-to="3"></li>
+		</ol>
+		<div class="carousel-inner" role="listbox">
+			<div class="carousel-item active">
+				<a href="{% url 'users-student' %}">
+					<picture>
+						<source srcset="{% static 'dis-2000x500.jpg' %}" media="(min-width: 1400px)">
+						<source srcset="{% static 'dis-1400x500.jpg' %}" media="(min-width: 769px)">
+						<source srcset="{% static 'dis-800x500.jpg' %}" media="(min-width: 577px)">
+						<img style="-webkit-filter: blur(3px);filter: blur(3px);" srcset="{% static 'dis-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
+					</picture>
+					<div class="carousel-caption mr-auto">
+						<div>
+							<h2 style="color:white;">Φοιτητής</h2>
+							<p>Είσαι φοιτητής; Δικαιούσαι δωρεάν συγγράμματα!</p>
+							<span class="btn btn-light">Μάθε περισσότερα</span>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="carousel-item">
+				<a href="{% url 'users-about' %}">
+					<picture>
+						<source srcset="{% static 'sec-2000x500.jpg' %}" media="(min-width: 1400px)">
+						<source srcset="{% static 'sec-1400x500.jpg' %}" media="(min-width: 769px)">
+						<source srcset="{% static 'sec-800x500.jpg' %}" media="(min-width: 577px)">
+						<img style="-webkit-filter: blur(1px);filter: blur(1px);" srcset="{% static 'sec-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
+					</picture>
+					<div class="carousel-caption justify-content-center align-items-center">
+						<div>
+							<h2 style="color:white;">Εκδότης</h2>
+							<p>Είστε εκδότης ακαδημαϊκών συγγραμμάτων; Μπορείτε να συμμετέχετε στο πρόγραμμα Εύδοξος</p>
+							<span class="btn btn-light">Μάθε περισσότερα</span>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="carousel-item">
+				<a href="#">
+					<picture>
+						<source srcset="{% static 'dis-2000x500.jpg' %}" media="(min-width: 1400px)">
+						<source srcset="{% static 'dis-1400x500.jpg' %}" media="(min-width: 769px)">
+						<source srcset="{% static 'dis-800x500.jpg' %}" media="(min-width: 577px)">
+						<img style="-webkit-filter: blur(3px);filter: blur(3px);" srcset="{% static 'dis-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
+					</picture>
+					<div class="carousel-caption justify-content-center align-items-center">
+						<div>
+							<h2 style="color:white;">Σημείο Διανομής</h2>
+							<p>Είστε Βιβλιοπωλείο ή Βιβλιοθήκη και θέλετε να διανείμετε ακαδημαϊκά συγγράμματα;</p>
+							<span class="btn btn-light">Μάθε περισσότερα</span>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="carousel-item">
+				<a href="#">
+					<picture>
+						<source srcset="{% static 'sec-2000x500.jpg' %}" media="(min-width: 1400px)">
+						<source srcset="{% static 'sec-1400x500.jpg' %}" media="(min-width: 769px)">
+						<source srcset="{% static 'sec-800x500.jpg' %}" media="(min-width: 577px)">
+						<img style="-webkit-filter: blur(1px);filter: blur(1px);" srcset="{% static 'sec-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
+					</picture>
+					<div class="carousel-caption justify-content-center align-items-center">
+						<div>
+							<h2 style="color:white;">Γραμματεία</h2>
+							<p>Είστε Γραμματεία ακαδημαϊκού τμήματος και θέλετε να τροποποιήσετε το Πρόγραμμα Σπουδών;</p>
+							<span class="btn btn-light">Μάθε περισσότερα</span>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="content-section">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="content-section">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="content-section">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="content-section">
+			</div>
+		</div>
 	</div>
 	<br>
 	<br>
@@ -114,14 +219,6 @@
 	<br>
 	<br>
 	<br>
-	<br><br>
 	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	<br> 
 {% endblock content %}
