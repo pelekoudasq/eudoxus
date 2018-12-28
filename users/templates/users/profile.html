@@ -1,8 +1,8 @@
 {% extends "users/base.html"%}
 {% load crispy_forms_tags %}
 {% block content %}
-	<div class="col-md-12 container">
-		<div class="content-section">
+	<div class="content-section container shadow mb-6">
+		<div class="col-md-12">
 			<h3>Καλώς ήρθες {{ user.username }}!</h3>
 			<form method="POST">
 				{% csrf_token %}
@@ -14,7 +14,7 @@
 					<button class="btn btn-outline-info" type="submit">Αποθήκευση</button>
 				</div>
 			</form>
-			<div class="border-bottom pt-3">
+			<div class="border-top pt-3">
 				<nav class="small" aria-label="breadcrumb">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="{% url 'users-home' %}">Αρχική</a></li>
