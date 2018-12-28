@@ -114,7 +114,7 @@
 		</ol>
 		<div class="carousel-inner" role="listbox">
 			<div class="carousel-item active">
-				<a href="{% url 'users-student' %}">
+				<div>
 					<picture>
 						<source srcset="{% static 'dis-2000x500.jpg' %}" media="(min-width: 1400px)">
 						<source srcset="{% static 'dis-1400x500.jpg' %}" media="(min-width: 769px)">
@@ -125,13 +125,13 @@
 						<div>
 							<h2 style="color:white;">Φοιτητής</h2>
 							<p>Είσαι φοιτητής; Δικαιούσαι δωρεάν συγγράμματα!</p>
-							<span class="btn btn-light">Μάθε περισσότερα</span>
+							<a href="{% url 'users-student' %}" class="btn btn-light">Μάθε περισσότερα</a>
 						</div>
 					</div>
-				</a>
+				</div>
 			</div>
 			<div class="carousel-item">
-				<a href="{% url 'users-about' %}">
+				<div>
 					<picture>
 						<source srcset="{% static 'sec-2000x500.jpg' %}" media="(min-width: 1400px)">
 						<source srcset="{% static 'sec-1400x500.jpg' %}" media="(min-width: 769px)">
@@ -142,13 +142,13 @@
 						<div>
 							<h2 style="color:white;">Εκδότης</h2>
 							<p>Είστε εκδότης ακαδημαϊκών συγγραμμάτων; Μπορείτε να συμμετέχετε στο πρόγραμμα Εύδοξος</p>
-							<span class="btn btn-light">Μάθε περισσότερα</span>
+							<a href="{% url 'users-about' %}" class="btn btn-light">Μάθε περισσότερα</a>
 						</div>
 					</div>
-				</a>
+				</div>
 			</div>
 			<div class="carousel-item">
-				<a href="#">
+				<div>
 					<picture>
 						<source srcset="{% static 'dis-2000x500.jpg' %}" media="(min-width: 1400px)">
 						<source srcset="{% static 'dis-1400x500.jpg' %}" media="(min-width: 769px)">
@@ -159,13 +159,13 @@
 						<div>
 							<h2 style="color:white;">Σημείο Διανομής</h2>
 							<p>Είστε Βιβλιοπωλείο ή Βιβλιοθήκη και θέλετε να διανείμετε ακαδημαϊκά συγγράμματα;</p>
-							<span class="btn btn-light">Μάθε περισσότερα</span>
+							<a class="btn btn-light" href="#">Μάθε περισσότερα</a>
 						</div>
 					</div>
-				</a>
+				</div>
 			</div>
 			<div class="carousel-item">
-				<a href="#">
+				<div>
 					<picture>
 						<source srcset="{% static 'sec-2000x500.jpg' %}" media="(min-width: 1400px)">
 						<source srcset="{% static 'sec-1400x500.jpg' %}" media="(min-width: 769px)">
@@ -176,10 +176,10 @@
 						<div>
 							<h2 style="color:white;">Γραμματεία</h2>
 							<p>Είστε Γραμματεία ακαδημαϊκού τμήματος και θέλετε να τροποποιήσετε το Πρόγραμμα Σπουδών;</p>
-							<span class="btn btn-light">Μάθε περισσότερα</span>
+							<a class="btn btn-light" href="#">Μάθε περισσότερα</a>
 						</div>
 					</div>
-				</a>
+				</div>
 			</div>
 		</div>
 		<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
@@ -192,21 +192,25 @@
 		</a>
 	</div>
 	<br>
-	<div class="row">
+	<div class="row mx-0">
 		<div class="col-sm-3">
 			<div class="content-section">
+				<a class="nav-link active" id="student-tab" data-toggle="tab" href="#student" role="tab" aria-controls="student" aria-selected="true"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/students-cap.png' %}"> Φοιτητής</a>
 			</div>
 		</div>
 		<div class="col-sm-3">
 			<div class="content-section">
+				<a class="nav-link" id="publisher-tab" data-toggle="tab" href="#publisher" role="tab" aria-controls="publisher" aria-selected="false"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/library.png' %}"> Εκδότης</a>
 			</div>
 		</div>
 		<div class="col-sm-3">
 			<div class="content-section">
+				<a class="nav-link" id="distributer-tab" data-toggle="tab" href="#distributer" role="tab" aria-controls="distributer" aria-selected="false"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/stack-of-books.png' %}"> Σημείο Διανομής</a>
 			</div>
 		</div>
 		<div class="col-sm-3">
 			<div class="content-section">
+				<a class="nav-link" id="secretary-tab" data-toggle="tab" href="#secretary" role="tab" aria-controls="secretary" aria-selected="false"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/school-building.png' %}"> Γραμματεία</a>
 			</div>
 		</div>
 	</div>
