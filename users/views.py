@@ -6,7 +6,7 @@ from django.db.models import Q
 from formtools.wizard.views import SessionWizardView
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import UserRegisterForm, ContactForm, UniversityForm, UpdateProfile
+from .forms import UserRegisterForm, ContactForm, UniversityForm, UpdateProfile, BookFormset
 from users.models import University, Department, Class, Book
 import logging
 logr = logging.getLogger(__name__)
@@ -63,6 +63,7 @@ class DisplayWizard(SessionWizardView):
 
 	def done(self, form_list, **kwargs):
 		form_data = process_form_data(form_list)
+		print (form_data)
 		# messages.success(request, f'{form_data} επιλέχθηκαν')
 		return redirect('profile')
 
@@ -83,14 +84,22 @@ class OrderWizard(SessionWizardView):
 			sems = self.get_cleaned_data_for_step('semdata')['semester']
 			form.fields['lesson'].queryset = Class.objects.filter(dept=dept, semester__in=sems)
 		elif step == 'books':
+			classes = self.get_cleaned_data_for_step('classes')
 			classes = self.get_cleaned_data_for_step('classes')['lesson']
-			for cl in classes:
-				print(cl.books.all())
-			form.fields['book'].queryset = cl.books.all()
+			form.extra = len(classes)
+			for i in range(len(classes)):
+				form.forms[i].fields['book'].label = classes[i]
+				form.forms[i].fields['book'].queryset = classes[i].books.all()
+		elif step == 'final':
+			books = self.get_cleaned_data_for_step('books')
+			form.extra = len(books)
+			for i in range(len(books)):
+				form.forms[i].fields['way_of_receipt'].label = books[i]['book']
 		return form
 	
 	def done(self, form_list, **kwargs):
 		form_data = process_form_data(form_list)
+		print(form_data)
 		# messages.success(request, f'{form_data} επιλέχθηκαν')
 		return redirect('profile')
 

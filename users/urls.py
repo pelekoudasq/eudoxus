@@ -12,7 +12,8 @@ named_order_forms = (
     ('deptdata', forms.DepartmentForm),
     ('semdata', forms.SemesterPicker),
     ('classes', forms.ClassForm),
-    ('books', forms.BookForm),
+    ('books', forms.BookFormset),
+    ('final', forms.FinalFormset),
 )
 
 named_display_forms = (

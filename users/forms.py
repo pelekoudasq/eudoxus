@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import formset_factory
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from users.models import University, Department, Order, Class, Book
@@ -116,20 +117,33 @@ class ClassFormDisplay(forms.Form):
 		super(ClassFormDisplay, self).__init__(*args, **kwargs)
 		self.fields['lesson'].label = "Επιλέξτε Μάθημα:"
 
-class BookChoiceField(forms.ModelMultipleChoiceField):
+class BookChoiceField(forms.ModelChoiceField):
 	def label_from_instance(self, obj):
 		return obj.title+", "+obj.author
 
 class BookForm(forms.Form):
-	book = BookChoiceField(queryset = Book.objects.all(), required=True, widget=forms.RadioSelect)
+	book = BookChoiceField(queryset = Book.objects.all(), required=True, widget=forms.RadioSelect, empty_label=None)
 
 	def __init__(self, *args, **kwargs):
 		super(BookForm, self).__init__(*args, **kwargs)
 		self.fields['book'].label = "Επιλέξτε Συγγράμματα:"
+		self.fields['book'].widget.attrs.update({'class' : 'text-muted'})
 
+BookFormset = formset_factory(BookForm, extra=1)
 
+RECEIPT = (
+	(1, 'Παραλαβή από Σημείο Διανομής'),
+	(2, 'Παραλαβή από Φοιτητή'),
+	(3, 'Αποστολή στο σπίτι'),
+)
 
+class OrderFinal(forms.Form):
+	way_of_receipt = forms.ChoiceField(choices=RECEIPT, required=True, widget=forms.RadioSelect)
 
+	def __init__(self, *args, **kwargs):
+		super(OrderFinal, self).__init__(*args, **kwargs)
+
+FinalFormset = formset_factory(OrderFinal, extra=1)
 
 # class OrderForm(forms.ModelForm):
 	

@@ -21,6 +21,10 @@ footer {
     background-color: #D7D7D7!important;
 }
 
+.asteriskField {
+    display: none;
+}
+
 .nav-tabs {
     font-size:  17px !important;
 }
