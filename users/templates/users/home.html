@@ -1,111 +1,33 @@
 {% extends "users/base.html"%}
 {% load static %}
 {% block content %}
-	<!-- <div class="content-section">
-		<div class="col-md-12">
-			<ul class="nav justify-content-center nav-tabs" id="myTab" role="tablist">
-			  <li class="nav-item">
-			    <a class="nav-link active" id="student-tab" data-toggle="tab" href="#student" role="tab" aria-controls="student" aria-selected="true"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/students-cap.png' %}">  Φοιτητής</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" id="publisher-tab" data-toggle="tab" href="#publisher" role="tab" aria-controls="publisher" aria-selected="false"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/library.png' %}">  Εκδότης</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" id="distributer-tab" data-toggle="tab" href="#distributer" role="tab" aria-controls="distributer" aria-selected="false"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/stack-of-books.png' %}">  Σημείο Διανομής</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" id="secretary-tab" data-toggle="tab" href="#secretary" role="tab" aria-controls="secretary" aria-selected="false"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/school-building.png' %}">  Γραμματεία</a>
-			  </li>
-			</ul>
-			<div class="tab-content" id="myTabContent">
-			  <div class="tab-pane text-center fade show active" id="student" role="tabpanel" aria-labelledby="student-tab">
-			  	<br>
-			  	Οι δηλώσεις και οι διανομές των συγγραμμάτων <br>
-			  	για το Χειμερινό Εξάμηνο 2018 - 2019 <br>
-			  	ξεκίνησαν την <b>Τετάρτη 24 Οκτωβρίου</b> <br> 
-			  	και θα ολοκληρωθούν την <b>Παρασκευή 21 Δεκεμβρίου</b>
-			  	<br>
-			  	<br>
-			  	Είσαι νέος φοιτητής;<a class="ml-2" href="{% url 'register' %}">Κάνε εγγραφή</a>
-			  	<br>
-			  	<br>
-			  	<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
-				  <div class="btn-group mr-2" role="group" aria-label="First group">
-				    <a class="btn btn-info" href="{% url 'users-display' %}">ΔΙΑΘΕΣΙΜΑ ΣΥΓΓΡΑΜΜΑΤΑ</a>
-				  </div>
-				  <div class="btn-group" role="group" aria-label="Second group">
-				    <a class="btn btn-info" href="{% url 'users-order' %}">ΔΗΛΩΣΗ ΣΥΓΓΡΑΜΜΑΤΩΝ</a>
-				  </div>
-				</div>
-				<br>
-			  </div>
-			  <div class="tab-pane text-center fade" id="publisher" role="tabpanel" aria-labelledby="publisher-tab">
-			  	<br>
-			  	Οι δηλώσεις και οι διανομές των συγγραμμάτων <br>
-			  	για το Χειμερινό Εξάμηνο 2018 - 2019 <br>
-			  	ξεκίνησαν την <b>Τετάρτη 24 Οκτωβρίου</b> <br> 
-			  	και θα ολοκληρωθούν την <b>Παρασκευή 21 Δεκεμβρίου</b>
-			  	<br>
-			  	<br>
-			  	Είστε Εκδοτικός Οίκος ή Αυτοεκδότης χωρίς λογαριασμό στον Εύδοξο;<a class="ml-2" href="{% url 'register' %}">Εγγραφείτε</a>
-			  	<br>
-			  	<br>
-			  	<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
-				  <div class="btn-group mr-2" role="group" aria-label="First group">
-				    <button type="button" class="btn btn-info">ΣΥΓΓΡΑΜΜΑΤΑ ΕΚΔΟΤΗ</button>
-				  </div>
-				  <div class="btn-group" role="group" aria-label="Second group">
-				    <button type="button" class="btn btn-info">ΟΔΗΓΟΣ ΕΚΔΟΤΗ</button>
-				  </div>
-				</div>
-				<br>
-			  </div>
-			  <div class="tab-pane text-center fade" id="distributer" role="tabpanel" aria-labelledby="distributer-tab">
-			  	<br>
-			  	Οι δηλώσεις και οι διανομές των συγγραμμάτων <br>
-			  	για το Χειμερινό Εξάμηνο 2018 - 2019 <br>
-			  	ξεκίνησαν την <b>Τετάρτη 24 Οκτωβρίου</b> <br> 
-			  	και θα ολοκληρωθούν την <b>Παρασκευή 21 Δεκεμβρίου</b>
-			  	<br>
-			  	<br>
-			  	Είστε Βιβλιοπωλείο ή Βιβλιοθήκη χωρίς λογαριασμό στον Εύδοξο;<a class="ml-2" href="{% url 'register' %}">Εγγραφείτε</a>
-			  	<br>
-			  	<br>
-			  	<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
-				  <div class="btn-group mr-2" role="group" aria-label="First group">
-				    <button type="button" class="btn btn-info">ΠΑΡΑΔΟΣΗ ΣΥΓΓΡΑΜΜΑΤΩΝ</button>
-				  </div>
-				  <div class="btn-group" role="group" aria-label="Second group">
-				    <button type="button" class="btn btn-info">ΟΔΗΓΟΣ ΣΗΜΕΙΟΥ ΔΙΑΝΟΜΗΣ</button>
-				  </div>
-				</div>
-				<br>
-			  </div>
-			  <div class="tab-pane text-center fade" id="secretary" role="tabpanel" aria-labelledby="secretary-tab">
-			  	<br>
-			  	Οι δηλώσεις και οι διανομές των συγγραμμάτων <br>
-			  	για το Χειμερινό Εξάμηνο 2018 - 2019 <br>
-			  	ξεκίνησαν την <b>Τετάρτη 24 Οκτωβρίου</b> <br> 
-			  	και θα ολοκληρωθούν την <b>Παρασκευή 21 Δεκεμβρίου</b>
-			  	<br>
-			  	<br>
-			  	Είστε Γραμματεία χωρίς λογαριασμό στον Εύδοξο;<a class="ml-2" href="{% url 'register' %}">Εγγραφείτε</a>
-			  	<br>
-			  	<br>
-			  	<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
-				  <div class="btn-group mr-2" role="group" aria-label="First group">
-				    <button type="button" class="btn btn-info">ΠΡΟΓΡΑΜΜΑ ΣΠΟΥΔΩΝ</button>
-				  </div>
-				  <div class="btn-group" role="group" aria-label="Second group">
-				    <button type="button" class="btn btn-info">ΟΔΗΓΟΣ ΓΡΑΜΜΑΤΕΙΑΣ</button>
-				  </div>
-				</div>
-				<br>
-			  </div>
-			</div>
-		</div>
-	</div>-->
-	<div id="carousel" class="carousel slide carousel-fade shadow mb-6" data-ride="carousel" data-interval="4000">
+<!--
+</div>
+<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
+<div class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn btn-info">ΣΥΓΓΡΑΜΜΑΤΑ ΕΚΔΟΤΗ</button>
+</div>
+<div class="btn-group" role="group" aria-label="Second group">
+<button type="button" class="btn btn-info">ΟΔΗΓΟΣ ΕΚΔΟΤΗ</button>
+</div>
+</div>
+<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
+<div class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn btn-info">ΠΑΡΑΔΟΣΗ ΣΥΓΓΡΑΜΜΑΤΩΝ</button>
+</div>
+<div class="btn-group" role="group" aria-label="Second group">
+<button type="button" class="btn btn-info">ΟΔΗΓΟΣ ΣΗΜΕΙΟΥ ΔΙΑΝΟΜΗΣ</button>
+</div>
+</div>
+<div class="btn-toolbar" role="toolbar" style="justify-content: center;" aria-label="Toolbar with button groups">
+<div class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn btn-info">ΠΡΟΓΡΑΜΜΑ ΣΠΟΥΔΩΝ</button>
+</div>
+<div class="btn-group" role="group" aria-label="Second group">
+<button type="button" class="btn btn-info">ΟΔΗΓΟΣ ΓΡΑΜΜΑΤΕΙΑΣ</button>
+</div>
+</div>-->
+	<div id="carousel" class="carousel slide carousel-fade shadow mb-0" data-ride="carousel" data-interval="4000">
 		<ol class="carousel-indicators">
 			<li data-target="#carousel" data-slide-to="0" class="active"></li>
 			<li data-target="#carousel" data-slide-to="1"></li>
@@ -114,71 +36,55 @@
 		</ol>
 		<div class="carousel-inner" role="listbox">
 			<div class="carousel-item active">
-				<div>
-					<picture>
-						<source srcset="{% static 'new-2000x500.jpg' %}" media="(min-width: 1400px)">
-						<source srcset="{% static 'new-1400x500.jpg' %}" media="(min-width: 769px)">
-						<source srcset="{% static 'new-800x500.jpg' %}" media="(min-width: 577px)">
-						<img srcset="{% static 'new-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
-					</picture>
-					<div class="carousel-caption mr-auto">
-						<div>
-							<h2>Φοιτητής</h2>
-							<p style="color:#444444;">Είσαι φοιτητής; Δικαιούσαι δωρεάν συγγράμματα!</p>
-							<a href="{% url 'users-student' %}" class="btn btn-light">Μάθε περισσότερα</a>
-						</div>
-					</div>
+				<picture>
+					<source srcset="{% static 'new-2000x500.jpg' %}" media="(min-width: 1400px)">
+					<source srcset="{% static 'new-1400x500.jpg' %}" media="(min-width: 769px)">
+					<source srcset="{% static 'new-800x500.jpg' %}" media="(min-width: 577px)">
+					<img srcset="{% static 'new-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
+				</picture>
+				<div class="carousel-caption mr-auto">
+					<h1>Φοιτητής</h1>
+					<h6 class="mb-3" style="color:#444444;">Είσαι φοιτητής; Δικαιούσαι δωρεάν συγγράμματα!</h6>
+					<a href="{% url 'users-student' %}" class="btn btn-light mb-4">Μάθε περισσότερα</a>
 				</div>
 			</div>
 			<div class="carousel-item">
-				<div>
-					<picture>
-						<source srcset="{% static 'sec-2000x500.jpg' %}" media="(min-width: 1400px)">
-						<source srcset="{% static 'sec-1400x500.jpg' %}" media="(min-width: 769px)">
-						<source srcset="{% static 'sec-800x500.jpg' %}" media="(min-width: 577px)">
-						<img style="-webkit-filter: blur(1px);filter: blur(1px);" srcset="{% static 'sec-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
-					</picture>
-					<div class="carousel-caption justify-content-center align-items-center">
-						<div>
-							<h2 style="color:white;">Εκδότης</h2>
-							<p>Είστε εκδότης ακαδημαϊκών συγγραμμάτων; Μπορείτε να συμμετέχετε στο πρόγραμμα Εύδοξος</p>
-							<a href="{% url 'users-about' %}" class="btn btn-light">Μάθε περισσότερα</a>
-						</div>
-					</div>
+				<picture>
+					<source srcset="{% static 'sec-2000x500.jpg' %}" media="(min-width: 1400px)">
+					<source srcset="{% static 'sec-1400x500.jpg' %}" media="(min-width: 769px)">
+					<source srcset="{% static 'sec-800x500.jpg' %}" media="(min-width: 577px)">
+					<img style="-webkit-filter: blur(1px);filter: blur(1px);" srcset="{% static 'sec-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
+				</picture>
+				<div class="carousel-caption justify-content-center align-items-center">
+					<h1 style="color:white;">Εκδότης</h1>
+					<h6 class="mb-3" style="color:#fff;">Είστε εκδότης ακαδημαϊκών συγγραμμάτων; Μπορείτε να συμμετέχετε στο πρόγραμμα Εύδοξος</h6>
+					<a href="{% url 'users-about' %}" class="btn btn-light mb-4">Μάθε περισσότερα</a>
 				</div>
 			</div>
 			<div class="carousel-item">
-				<div>
-					<picture>
-						<source srcset="{% static 'dis-2000x500.jpg' %}" media="(min-width: 1400px)">
-						<source srcset="{% static 'dis-1400x500.jpg' %}" media="(min-width: 769px)">
-						<source srcset="{% static 'dis-800x500.jpg' %}" media="(min-width: 577px)">
-						<img style="-webkit-filter: blur(3px);filter: blur(3px);" srcset="{% static 'dis-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
-					</picture>
-					<div class="carousel-caption justify-content-center align-items-center">
-						<div>
-							<h2 style="color:white;">Σημείο Διανομής</h2>
-							<p>Είστε Βιβλιοπωλείο ή Βιβλιοθήκη και θέλετε να διανείμετε ακαδημαϊκά συγγράμματα;</p>
-							<a class="btn btn-light" href="#">Μάθε περισσότερα</a>
-						</div>
-					</div>
+				<picture>
+					<source srcset="{% static 'dis-2000x500.jpg' %}" media="(min-width: 1400px)">
+					<source srcset="{% static 'dis-1400x500.jpg' %}" media="(min-width: 769px)">
+					<source srcset="{% static 'dis-800x500.jpg' %}" media="(min-width: 577px)">
+					<img style="-webkit-filter: blur(3px);filter: blur(3px);" srcset="{% static 'dis-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
+				</picture>
+				<div class="carousel-caption justify-content-center align-items-center">
+					<h1 style="color:white;">Σημείο Διανομής</h1>
+					<h6 class="mb-3" style="color:#fff;">Είστε Βιβλιοπωλείο ή Βιβλιοθήκη και θέλετε να διανείμετε ακαδημαϊκά συγγράμματα;</h6>
+					<a class="btn btn-light mb-4" href="#">Μάθε περισσότερα</a>
 				</div>
 			</div>
 			<div class="carousel-item">
-				<div>
-					<picture>
-						<source srcset="{% static 'amf-2000x500.jpg' %}" media="(min-width: 1400px)">
-						<source srcset="{% static 'amf-1400x500.jpg' %}" media="(min-width: 769px)">
-						<source srcset="{% static 'amf-800x500.jpg' %}" media="(min-width: 577px)">
-						<img srcset="{% static 'amf-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
-					</picture>
-					<div class="carousel-caption justify-content-center align-items-center">
-						<div>
-							<h2 style="color:#3b3b3b;">Γραμματεία</h2>
-							<p>Είστε Γραμματεία ακαδημαϊκού τμήματος και θέλετε να τροποποιήσετε το Πρόγραμμα Σπουδών;</p>
-							<a class="btn btn-light" href="#">Μάθε περισσότερα</a>
-						</div>
-					</div>
+				<picture>
+					<source srcset="{% static 'amf-2000x500.jpg' %}" media="(min-width: 1400px)">
+					<source srcset="{% static 'amf-1400x500.jpg' %}" media="(min-width: 769px)">
+					<source srcset="{% static 'amf-800x500.jpg' %}" media="(min-width: 577px)">
+					<img srcset="{% static 'amf-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
+				</picture>
+				<div class="carousel-caption justify-content-center align-items-center">
+					<h1 style="color:#3b3b3b;">Γραμματεία</h1>
+					<h6 class="mb-3" style="color:#fff;">Είστε Γραμματεία ακαδημαϊκού τμήματος και θέλετε να τροποποιήσετε το Πρόγραμμα Σπουδών;</h6>
+					<a class="btn btn-light mb-4" href="#">Μάθε περισσότερα</a>
 				</div>
 			</div>
 		</div>
@@ -192,37 +98,37 @@
 		</a>
 	</div>
 	<br>
-	<div class="row mx-0">
-		<div class="col-sm-3">
-			<div class="content-section shadow mb-6">
-				<a class="nav-link active" id="student-tab" data-toggle="tab" href="#student" role="tab" aria-controls="student" aria-selected="true"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/students-cap.png' %}"> Φοιτητής</a>
+	<div class="row mx-5 ">
+		<div class="col-sm-3 mx p-0 content-section shadow mb-6 mt-0 p-0">
+			<a href="{% url 'users-student' %}" style="text-decoration: none;">
+				<div class="menubot" style="height: 200px; text-align: center;">
+					<br><br><img style="display: inline-block; height: 90px; margin-top: -5px" src="{% static '/students-cap.png' %}"><br><h5>Φοιτητής</h5>
+				</div>
+			</a>
 			</div>
+		<div class="col-sm-3 mx-0 p-0 content-section shadow mb-6 mt-0 p-0">
+			<a href="#" style="text-decoration: none;">
+				<div class="menubot" style="height: 200px; text-align: center;">
+					<br><br><img style="display: inline-block; height: 90px; margin-top: -5px" src="{% static '/library.png' %}"><br><h5>Εκδότης</h5>
+				</div>
+			</div>
+		</a>
+		<div class="col-sm-3 mx-0 p-0 content-section shadow mb-6 mt-0 p-0">
+			<a href="#" style="text-decoration: none;">
+				<div class="menubot" style="height: 200px; text-align: center;">
+					<br><br><img style="display: inline-block; height: 90px; margin-top: -5px" src="{% static '/stack-of-books.png' %}"><br><h5>Σημείο Διανομής</h5>
+				</div>
+			</a>
 		</div>
-		<div class="col-sm-3">
-			<div class="content-section shadow mb-6">
-				<a class="nav-link" id="publisher-tab" data-toggle="tab" href="#publisher" role="tab" aria-controls="publisher" aria-selected="false"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/library.png' %}"> Εκδότης</a>
-			</div>
-		</div>
-		<div class="col-sm-3">
-			<div class="content-section shadow mb-6">
-				<a class="nav-link" id="distributer-tab" data-toggle="tab" href="#distributer" role="tab" aria-controls="distributer" aria-selected="false"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/stack-of-books.png' %}"> Σημείο Διανομής</a>
-			</div>
-		</div>
-		<div class="col-sm-3">
-			<div class="content-section shadow mb-6">
-				<a class="nav-link" id="secretary-tab" data-toggle="tab" href="#secretary" role="tab" aria-controls="secretary" aria-selected="false"><img style="display: inline-block; height: 30px; margin-top: -5px" src="{% static '/school-building.png' %}"> Γραμματεία</a>
-			</div>
+		<div class="col-sm-3 mx-0 p-0 content-section shadow mb-6 mt-0 p-0">
+			<a href="#" style="text-decoration: none;">
+				<div class="menubot" style="height: 200px; text-align: center;">
+					<br><br><img style="display: inline-block; height: 90px; margin-top: -5px" src="{% static '/school-building.png' %}"><br><h5>Γραμματεία</h5>
+				</div>
+			</a>
 		</div>
 	</div>
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br> 
 {% endblock content %}

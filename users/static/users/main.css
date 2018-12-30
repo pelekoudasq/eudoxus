@@ -140,3 +140,11 @@ footer {
 .bs-wizard > .bs-wizard-step.complete button.bs-wizard-dot:after{  border: none; padding: 0; content: ' '; width: 14px; height: 14px; background: #17a2b8; border-radius: 50px; position: absolute; top: 8px; left: 8px;}
 .bs-wizard > .bs-wizard-step.active button.bs-wizard-dot{  border: none; padding: 0; position: absolute; width: 30px; height: 30px; display: block; background: #ffcc80; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;}
 /*END Form Wizard*/
+
+.menubot{
+  transition: box-shadow .3s;
+}
+
+.menubot:hover {
+  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+}
