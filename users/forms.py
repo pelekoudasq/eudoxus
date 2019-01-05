@@ -2,7 +2,7 @@ from django import forms
 from django.forms import formset_factory
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from users.models import University, Department, Order, Class, Book
+from users.models import University, Department, Order, Class, Book, Student, Publisher, Distributor, Secretary
 
 USER_TYPES = (
 	(1, 'Φοιτητής'),
@@ -28,6 +28,53 @@ class UserRegisterForm(UserCreationForm):
 		self.fields['password2'].label = "Επαλήθευση Κωδικού Πρόσβασης"
 		self.fields['user_type'].label = "Χρησιμοποιώ τον Εύδοξο ως"
 		self.fields['password2'].help_text = "Εισάγετε τον ίδιο κωδικό με πριν, για επαλήθευση"
+
+################### * ADDITIONAL INFO * ##################################
+
+class StudentAdditionalInfo(forms.ModelForm):
+
+	class Meta:
+		model = Student
+		fields = ['uni', 'dept']
+
+	def __init__(self, *args, **kwargs):
+		super(StudentAdditionalInfo, self).__init__(*args, **kwargs)
+		self.fields['uni'].label = "Επιλέξτε το Ίδρυμά σας:"
+		self.fields['uni'].empty_label = None
+		self.fields['dept'].label = "Επιλέξτε το Τμήμα σας:"
+		self.fields['dept'].empty_label = None
+
+class PublisherAdditionalInfo(forms.ModelForm):
+
+	class Meta:
+		model = Publisher
+		fields = ['title']
+
+	def __init__(self, *args, **kwargs):
+		super(PublisherAdditionalInfo, self).__init__(*args, **kwargs)
+		self.fields['title'].label = "Εισάγετε την Επωνυμία σας:"
+
+class DistributorAdditionalInfo(forms.ModelForm):
+
+	class Meta:
+		model = Distributor
+		fields = ['title']
+
+	def __init__(self, *args, **kwargs):
+		super(DistributorAdditionalInfo, self).__init__(*args, **kwargs)
+		self.fields['title'].label = "Εισάγετε την Επωνυμία σας:"
+
+class SecretaryAdditionalInfo(forms.ModelForm):
+
+	class Meta:
+		model = Distributor
+		fields = ['title']
+
+	def __init__(self, *args, **kwargs):
+		super(SecretaryAdditionalInfo, self).__init__(*args, **kwargs)
+		self.fields['title'].label = "Εισάγετε τον τίτλο της γραμματείας:"
+
+#################################################################################
 
 class UpdateProfile(forms.ModelForm):
 	email = forms.EmailField()
@@ -59,6 +106,11 @@ class ContactForm(forms.Form):
 		self.fields['subject'].label = "Θέμα:"
 		self.fields['from_email'].label = "Email:"
 		self.fields['message'].label = "Περιεχόμενο:"
+
+
+
+
+################### * ORDER WIZARDS *######################
 
 class UniversityChoiceField(forms.ModelChoiceField):
 	def label_from_instance(self, obj):
@@ -144,16 +196,3 @@ class OrderFinal(forms.Form):
 		super(OrderFinal, self).__init__(*args, **kwargs)
 
 FinalFormset = formset_factory(OrderFinal, extra=1)
-
-# class OrderForm(forms.ModelForm):
-	
-# 	class Meta:
-# 		model = Order
-# 		fields = ['uni', 'dept']
-
-# 	def __init__(self, *args, **kwargs):
-# 		super().__init__(*args, **kwargs)
-# 		self.fields['uni'].label = "Ίδρυμα:"
-# 		self.fields['dept'].label = "Τμήμα:"
-# 		self.fields['uni'].queryset = University.objects.all()
-# 		self.fields['dept'].queryset = Department.objects.none()

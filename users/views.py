@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import AccessMixin
 from django.contrib.auth.models import Group, Permission
+from django.utils.decorators import method_decorator
 from django.db.models import Q
 from formtools.wizard.views import SessionWizardView
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from .forms import UserRegisterForm, ContactForm, UniversityForm, UpdateProfile, BookFormset
-from users.models import University, Department, Class, Book
+from .forms import UserRegisterForm, ContactForm, UniversityForm, UpdateProfile, BookFormset, StudentAdditionalInfo, PublisherAdditionalInfo, DistributorAdditionalInfo, SecretaryAdditionalInfo
+from users.models import University, Department, Class, Book, Student, Order, Publisher, Distributor, Secretary
 import logging
 logr = logging.getLogger(__name__)
 # Create your views here.
@@ -18,7 +19,7 @@ def home(request):
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
-		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(uni__title__icontains=query)).distinct()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	return render(request, 'users/home.html', {'title': 'Home'})
 
@@ -86,15 +87,16 @@ class OrderWizard(SessionWizardView):
 
 	def get_form(self, step=None, data=None, files=None):
 		form = super(OrderWizard, self).get_form(step, data, files)
+		student = Student.objects.filter(user=self.request.user).first()
 
 		if step is None:
 			step = self.steps.current
 
 		if self.request.user.is_authenticated:
 			if step == 'unidata':
-				form.fields['university'].queryset = University.objects.filter(id=1)
+				form.fields['university'].queryset = University.objects.filter(id=student.uni.id)
 			elif step == 'deptdata':
-				form.fields['department'].queryset = Department.objects.filter(id=1)
+				form.fields['department'].queryset = Department.objects.filter(id=student.dept.id)
 		else:
 			if step == 'deptdata':
 				prev_data = self.get_cleaned_data_for_step('unidata')['university'].id
@@ -135,7 +137,7 @@ def search(request):
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
-		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(uni__title__icontains=query)).distinct().order_by('title')
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct().order_by('title')
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	return render(request, 'users/search.html', {'title': 'Search'})
 
@@ -144,17 +146,63 @@ def search(request):
 @login_required
 def profile(request):
 	args = {}
-
-	if request.method == 'POST':
-		form = UpdateProfile(request.POST, instance=request.user)
-		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect(reverse('update_profile_success'))
+	if request.user.groups.all()[0].name == 'students':
+		print("STUDENT")
+		#get student info
+		student = Student.objects.filter(user=request.user).first()
+		args['student'] = student
+		#get student's orders
+		orders = Order.objects.filter(user=request.user)
+		args['orders'] = orders
+	elif request.user.groups.all()[0].name == 'publishers':
+		print("PUBLISHER")
+		info = Publisher.objects.filter(user=request.user).first()
+		args['info'] = info
+	elif request.user.groups.all()[0].name == 'distributors':
+		print("DISTR")
+		info = Distributor.objects.filter(user=request.user).first()
+		args['info'] = info
 	else:
-		form = UpdateProfile()
-
-	args['form'] = form
+		print("SECR")
+		info = Secretary.objects.filter(user=request.user).first()
+		args['info'] = info
 	return render(request, 'users/profile.html', args)
+
+@login_required
+def additional_register(request):
+	if request.method == 'POST':
+		if request.user.groups.all()[0].name == 'students':
+			form = StudentAdditionalInfo(request.POST)
+			student = form.save(commit=False)
+			student.user = request.user
+			student.save()
+		elif request.user.groups.all()[0].name == 'publishers':
+			form = PublisherAdditionalInfo(request.POST)
+			publisher = form.save(commit=False)
+			publisher.user = request.user
+			publisher.save()
+		elif request.user.groups.all()[0].name == 'distributors':
+			form = DistributorAdditionalInfo(request.POST)
+			distributor = form.save(commit=False)
+			distributor.user = request.user
+			distributor.save()
+		elif request.user.groups.all()[0].name == 'secretaries':
+			form = SecretaryAdditionalInfo(request.POST)
+			secretary = form.save(commit=False)
+			secretary.user = request.user
+			secretary.save()
+		return redirect('users-home')
+	else:
+		if request.user.groups.all()[0].name == 'students':
+			form = StudentAdditionalInfo()
+		elif request.user.groups.all()[0].name == 'publishers':
+			form = PublisherAdditionalInfo()
+		elif request.user.groups.all()[0].name == 'distributors':
+			form = DistributorAdditionalInfo()
+		elif request.user.groups.all()[0].name == 'secretaries':
+			form = SecretaryAdditionalInfo()
+	return render(request, 'users/additional.html', {'form': form})
+
 
 def register(request):
 	if request.method == 'POST':
@@ -165,8 +213,10 @@ def register(request):
 			group = Group.objects.get(id=group_selected)
 			user.groups.add(group)
 			username = form.cleaned_data.get('username')
-			messages.success(request, f'{username}, ο λογαριασμός σας δημιουργήθηκε με επιτυχία! Συνδεθείτε για να συνεχίσετε')
-			return redirect('login')
+			messages.success(request, f'{username}, ο λογαριασμός σας δημιουργήθηκε με επιτυχία!')
+			new_user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+			login(request, new_user)
+			return redirect('additional')
 	else:
 		form = UserRegisterForm()
 	return render(request, 'users/register.html', {'form': form})
