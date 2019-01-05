@@ -28,8 +28,14 @@
 				<br>
 				<br>
 				<h5>Ιστορικό Δηλώσεων Συγγραμμάτων</h5>
+				<br>
 				{% if orders %}
 					{% for order in orders %}
+						<h6>Δήλωση: {{ forloop.counter }}</h6>
+						{% for book in order.books.all %}
+							<div style="text-indent: 10px;">{{ book.title }}</div>
+						{% endfor %}
+						<br>
 					{% endfor %}
 				{% else %}
 				<h6><small class="text-muted">Δεν έχετε πραγματοποιήσει κάποια δήλωση ακόμη.</small></h6>

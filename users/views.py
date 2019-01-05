@@ -123,6 +123,13 @@ class OrderWizard(SessionWizardView):
 	def done(self, form_list, **kwargs):
 		form_data = process_form_data(form_list)
 		print(form_data)
+		books = self.get_cleaned_data_for_step('books')
+		order = Order()
+		order.user = self.request.user
+		order.save()
+		print(books[0]['book'])
+		for book in books:
+			order.books.add(book['book'])
 		# messages.success(request, f'{form_data} επιλέχθηκαν')
 		return redirect('profile')
 
