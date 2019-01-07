@@ -29,6 +29,22 @@ class UserRegisterForm(UserCreationForm):
 		self.fields['user_type'].label = "Χρησιμοποιώ τον Εύδοξο ως"
 		self.fields['password2'].help_text = "Εισάγετε τον ίδιο κωδικό με πριν, για επαλήθευση"
 
+class UpdateUser(UserCreationForm):
+	email = forms.EmailField()
+
+	class Meta:
+		model = User
+		fields = ['username', 'email', 'password1', 'password2']
+
+	def __init__(self, *args, **kwargs):
+		super(UpdateUser, self).__init__(*args, **kwargs)
+		self.fields['username'].help_text = None
+		self.fields['email'].label = "Διεύθυνση Email"
+		self.fields['password1'].label = "Κωδικός Πρόσβασης"
+		self.fields['password1'].help_text = "Ο κωδικός σας θα πρέπει να αποτελείται από τουλάχιστον 8 χαρακτήρες"
+		self.fields['password2'].label = "Επαλήθευση Κωδικού Πρόσβασης"
+		self.fields['password2'].help_text = "Εισάγετε τον ίδιο κωδικό με πριν, για επαλήθευση"
+
 ################### * ADDITIONAL INFO * ##################################
 
 class StudentAdditionalInfo(forms.ModelForm):

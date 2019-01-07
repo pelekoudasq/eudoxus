@@ -37,4 +37,5 @@ urlpatterns = [
     path('search/', views.search, name='users-search'),
     path('order/', order_wizard, name='users-order'),
     path('display/', display_wizard, name='users-display'),
+    path('profile/edit/', views.edit_profile, name='users-edit'),
 ]

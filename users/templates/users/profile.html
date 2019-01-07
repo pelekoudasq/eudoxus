@@ -6,55 +6,56 @@
 			<br>
 			<h3>Καλώς ήρθες {{ user.username }}!</h3>
 			<div class="border-top pt-3">
-			{% if student %}
-				<h5>Προσωπικά Στοιχεία</h5>
-				<!-- Ίδρυμα: <h6 style="display: inline;">{{ uni }}</h6><br>
-				Τμήμα: <h6 style="display: inline;">{{ dept }}</h6><br>
-				Email: <h6 style="display: inline;">{{ request.user.email }}</h6><br> -->
-				<table>
-					<tr>
-						<td class="pr-4" style="font-weight: normal;">Ίδρυμα: </td>
-						<td class="h6" style="color: #444444;">{{ student.uni }}</td>
-					</tr>
-					<tr>
-						<td class="pr-4" style="font-weight: normal;">Τμήμα: </td>
-						<td class="h6" style="color: #444444;">{{ student.dept }}</td>
-					</tr>
-					<tr>
-						<td class="pr-4" style="font-weight: normal;">Email: </td>
-						<td class="h6" style="color: #444444;">{{ user.email }}</td>
-					</tr>
-				</table>
 				<br>
-				<br>
-				<h5>Ιστορικό Δηλώσεων Συγγραμμάτων</h5>
-				<br>
-				{% if orders %}
-					{% for order in orders %}
-						<h6>Δήλωση: {{ forloop.counter }}</h6>
-						{% for book in order.books.all %}
-							<div style="text-indent: 10px;">{{ book.title }}</div>
-						{% endfor %}
-						<br>
-					{% endfor %}
-				{% else %}
-				<h6><small class="text-muted">Δεν έχετε πραγματοποιήσει κάποια δήλωση ακόμη.</small></h6>
-				{% endif %}
-			{% else %}
-				Επωνυμία: <h6 style="display: inline;">{{ info.title }}</h6>
-			{% endif %}
-			<br>
-			</div>
-			<!-- <form method="POST">
-				{% csrf_token %}
-				<fieldset class="form-group">
-					<legend class="border-bottom mb-4">Αλλαγή στοιχείων</legend>
-					{{ form|crispy }}
-				</fieldset>
-				<div class="form-group text-center">
-					<button class="btn btn-outline-info" type="submit">Αποθήκευση</button>
+				<div class="row">
+					<div class="col-md-6">
+						{% if student %}
+							<h5>Προσωπικά Στοιχεία <small><a href="{% url 'users-edit' %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></small></h5>
+							<!-- Ίδρυμα: <h6 style="display: inline;">{{ uni }}</h6><br>
+							Τμήμα: <h6 style="display: inline;">{{ dept }}</h6><br>
+							Email: <h6 style="display: inline;">{{ request.user.email }}</h6><br> -->
+							<table>
+								<tr>
+									<td class="pr-4" style="font-weight: normal;">Ίδρυμα: </td>
+									<td class="h6" style="color: #444444;">{{ student.uni }}</td>
+								</tr>
+								<tr>
+									<td class="pr-4" style="font-weight: normal;">Τμήμα: </td>
+									<td class="h6" style="color: #444444;">{{ student.dept }}</td>
+								</tr>
+								<tr>
+									<td class="pr-4" style="font-weight: normal;">Email: </td>
+									<td class="h6" style="color: #444444;">{{ user.email }}</td>
+								</tr>
+							</table>
+							<br>
+							<br>
+						{% else %}
+							<h5>Στοιχεία Λογαριασμού <small><a href="{% url 'users-edit' %}">Επεξεργασία</a></small></h5>
+							Επωνυμία: <h6 style="display: inline;">{{ info.title }}</h6>
+						{% endif %}
+						
+					</div>
+					<div class="col-md-6">
+						{% if student %}
+							<h5>Ιστορικό Δηλώσεων Συγγραμμάτων</h5>
+							<br>
+							{% if orders %}
+								{% for order in orders %}
+									<h6>Δήλωση: {{ forloop.counter }}</h6>
+									{% for book in order.books.all %}
+										<div style="text-indent: 10px;">{{ book.title }}</div>
+									{% endfor %}
+									<br>
+								{% endfor %}
+							{% else %}
+								<h6><small class="text-muted">Δεν έχετε πραγματοποιήσει κάποια δήλωση ακόμη.</small></h6>
+							{% endif %}
+						{% endif %}
+					</div>
 				</div>
-			</form> -->
+				<br>
+			</div>
 			<div class="border-top pt-3">
 				<nav class="small" aria-label="breadcrumb">
 					<ol class="breadcrumb">

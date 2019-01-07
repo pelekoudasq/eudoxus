@@ -9,7 +9,7 @@ from django.db.models import Q
 from formtools.wizard.views import SessionWizardView
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from .forms import UserRegisterForm, ContactForm, UniversityForm, UpdateProfile, BookFormset, StudentAdditionalInfo, PublisherAdditionalInfo, DistributorAdditionalInfo, SecretaryAdditionalInfo
+from .forms import *
 from users.models import University, Department, Class, Book, Student, Order, Publisher, Distributor, Secretary
 import logging
 logr = logging.getLogger(__name__)
@@ -230,18 +230,56 @@ def register(request):
 
 
 def contact(request):
-    if request.method == 'GET':
-        form = ContactForm()
-    else:
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            subject = form.cleaned_data['subject']
-            from_email = form.cleaned_data['from_email']
-            message = form.cleaned_data['message']
-            try:
-                send_mail(subject, message, from_email, ['peleioannis@gmail.com'])
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            messages.success(request, f'Το μήνυμά σας εστάλη με επιτυχία, ευχαριστούμε για την επικοινωνία!')
-            return redirect('users-home')
-    return render(request, "users/contact.html", {'form': form})
+	if request.method == 'GET':
+		form = ContactForm()
+	else:
+		form = ContactForm(request.POST)
+		if form.is_valid():
+			subject = form.cleaned_data['subject']
+			from_email = form.cleaned_data['from_email']
+			message = form.cleaned_data['message']
+			try:
+				send_mail(subject, message, from_email, ['peleioannis@gmail.com'])
+			except BadHeaderError:
+				return HttpResponse('Invalid header found.')
+		messages.success(request, f'Το μήνυμά σας εστάλη με επιτυχία, ευχαριστούμε για την επικοινωνία!')
+		return redirect('users-home')
+	return render(request, "users/contact.html", {'form': form})
+
+def edit_profile(request):
+	user = request.user
+	if request.method == 'GET':
+		fields = ['username', 'email', 'password1', 'password2']
+		form1 = UpdateUser(instance=user)
+		if request.user.groups.all()[0].name == 'students':
+			student = Student.objects.get(user=user)
+			form2 = StudentAdditionalInfo(instance=student)
+		elif request.user.groups.all()[0].name == 'publishers':
+			publisher = Publisher.objects.get(user=user)
+			form2 = PublisherAdditionalInfo(instance=publisher)
+		elif request.user.groups.all()[0].name == 'distributors':
+			distributor = Distributor.objects.get(user=user)
+			form2 = DistributorAdditionalInfo(instance=publisher)
+		elif request.user.groups.all()[0].name == 'secretaries':
+			secretary = Secretary.objects.get(user=user)
+			form2 = SecretaryAdditionalInfo(instance=secretary)
+		return render(request, "users/edit.html", {'form1' : form1, 'form2' : form2})
+	else:
+		form1 = UpdateUser(request.POST, instance=user)
+		form1.save()
+		form2 = 1
+		if request.user.groups.all()[0].name == 'students':
+			student = Student.objects.get(user=user)
+			form2 = StudentAdditionalInfo(request.POST, instance=student)
+		elif request.user.groups.all()[0].name == 'publishers':
+			publisher = Publisher.objects.get(user=user)
+			form2 = PublisherAdditionalInfo(request.POST, instance=publisher)
+		elif request.user.groups.all()[0].name == 'distributors':
+			distributor = Distributor.objects.get(user=user)
+			form2 = DistributorAdditionalInfo(request.POST, instance=publisher)
+		elif request.user.groups.all()[0].name == 'secretaries':
+			secretary = Secretary.objects.get(user=user)
+			form2 = SecretaryAdditionalInfo(request.POST, instance=secretary)
+		form2.save()
+		messages.success(request, f'Οι αλλαγές στο προφίλ σας ολοκληρώθηκαν!')
+		return redirect('profile')
