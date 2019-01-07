@@ -246,6 +246,7 @@ def contact(request):
 		return redirect('users-home')
 	return render(request, "users/contact.html", {'form': form})
 
+@login_required
 def edit_profile(request):
 	user = request.user
 	if request.method == 'GET':
