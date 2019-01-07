@@ -75,7 +75,7 @@ class DisplayWizard(AccessMixin, SessionWizardView):
 class OrderWizard(SessionWizardView):
 	template_name = "users/order.html"
 
-	@method_decorator(login_required)
+	#@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
 		response = super(OrderWizard, self).dispatch(request, *args, **kwargs)
 
@@ -87,12 +87,12 @@ class OrderWizard(SessionWizardView):
 
 	def get_form(self, step=None, data=None, files=None):
 		form = super(OrderWizard, self).get_form(step, data, files)
-		student = Student.objects.filter(user=self.request.user).first()
 
 		if step is None:
 			step = self.steps.current
 
 		if self.request.user.is_authenticated:
+			student = Student.objects.filter(user=self.request.user).first()
 			if step == 'unidata':
 				form.fields['university'].queryset = University.objects.filter(id=student.uni.id)
 			elif step == 'deptdata':

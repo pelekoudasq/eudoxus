@@ -110,7 +110,7 @@ class ContactForm(forms.Form):
 
 
 
-################### * ORDER WIZARDS *######################
+################### * ORDER WIZARDS * ######################
 
 class UniversityChoiceField(forms.ModelChoiceField):
 	def label_from_instance(self, obj):
