@@ -1,8 +1,8 @@
 from django import forms
-from django.forms import formset_factory
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from users.models import University, Department, Order, Class, Book, Student, Publisher, Distributor, Secretary
+from django.contrib.auth.models import User
+from django.forms import formset_factory
+from users.models import *
 
 USER_TYPES = (
 	(1, 'Φοιτητής'),
@@ -56,9 +56,7 @@ class StudentAdditionalInfo(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(StudentAdditionalInfo, self).__init__(*args, **kwargs)
 		self.fields['uni'].label = "Επιλέξτε το Ίδρυμά σας:"
-		self.fields['uni'].empty_label = None
 		self.fields['dept'].label = "Επιλέξτε το Τμήμα σας:"
-		self.fields['dept'].empty_label = None
 
 class PublisherAdditionalInfo(forms.ModelForm):
 
@@ -133,7 +131,7 @@ class UniversityChoiceField(forms.ModelChoiceField):
 		return obj.title
 
 class UniversityForm(forms.Form):
-	university = UniversityChoiceField(queryset = University.objects.all())
+	university = UniversityChoiceField(queryset = University.objects.all().order_by('title'))
 
 	def __init__(self, *args, **kwargs):
 		super(UniversityForm, self).__init__(*args, **kwargs)

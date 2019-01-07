@@ -8,12 +8,8 @@
 	<link rel="shortcut icon" type="image/png" href="{% static '/favicon.png' %}"/>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-	<link rel="stylesheet" type="text/css" href="{% static 'users/main.css' %}">
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
+	<link rel="stylesheet" type="text/css" href="{% static 'users/main.css' %}">
 	<title>Εύδοξος</title>
 </head>
 <body>
@@ -83,12 +79,6 @@
 							</div>
 						</li>
 					</div>
-					<!-- Navbar Right Side -->
-					<!--<form class="navbar-form navbar-left form-inline" action="/action_page.php">
-				      <div class="form-group">
-				        <input type="text" class="form-control" placeholder="Αναζήτηση">
-				      </div>
-				    </form>-->
 				    {% if request.resolver_match.url_name == 'users-home' %}
 					<div class="navbar-nav ">
 						<form class="form-inline" method="GET" action=''>
@@ -102,14 +92,14 @@
 		</nav>
 	</header>
 	<main role="main">
-				{% if messages %}
-					{% for message in messages %}
-						<div class="alert alert-{{ message.tags }}">
-							{{ message }}
-						</div>
-					{% endfor %}
-				{% endif %}
-				{% block content %}{% endblock %}
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-{{ message.tags }}">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endif %}
+		{% block content %}{% endblock %}
 	</main>
 	<footer class="page-footer font-small blue pt-4">
 		<div class="container-fluid text-center text-md-left">
@@ -167,8 +157,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="footer-copyright text-center py-3">© 2018 Copyright:
-			<a href="https://github.com/pelekoudasq/eudoxus"> di-dream@education</a>
+		<div class="footer-copyright text-center py-3">
+			<a style="color: #444444;" target="_blank" href="https://github.com/pelekoudasq/eudoxus"><i class="fa fa-github"></i></a>
 		</div>
 	</footer>
 	<!-- Optional JavaScript -->

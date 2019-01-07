@@ -1,11 +1,7 @@
-from django.urls import path
-from . import views
 from . import forms
+from . import views
+from django.urls import path
 from formtools.wizard.views import SessionWizardView
-
-initial = {
-	#'1': {views.OrderWizard.get_cleaned_data_for_step(0)},
-}
 
 named_order_forms = (
     ('unidata', forms.UniversityForm),
@@ -23,7 +19,7 @@ named_display_forms = (
     ('books', forms.BookForm),
 )
 
-order_wizard = views.OrderWizard.as_view(named_order_forms, initial_dict=initial)
+order_wizard = views.OrderWizard.as_view(named_order_forms)
 display_wizard = views.DisplayWizard.as_view(named_display_forms)
 
 urlpatterns = [

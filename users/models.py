@@ -1,7 +1,6 @@
-from django.db import models
 from django.contrib.auth.models import User, Group
+from django.db import models
 
-# Create your models here.
 class Publisher(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 	title = models.CharField(max_length=100, unique=True, blank=False)
@@ -64,4 +63,3 @@ class Student(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 	uni = models.ForeignKey(University, on_delete=models.CASCADE, blank=False)
 	dept = models.ForeignKey(Department, on_delete=models.CASCADE, blank=False)
-

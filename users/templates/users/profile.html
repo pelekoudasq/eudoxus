@@ -10,10 +10,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						{% if student %}
-							<h5>Προσωπικά Στοιχεία <small><a href="{% url 'users-edit' %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></small></h5>
-							<!-- Ίδρυμα: <h6 style="display: inline;">{{ uni }}</h6><br>
-							Τμήμα: <h6 style="display: inline;">{{ dept }}</h6><br>
-							Email: <h6 style="display: inline;">{{ request.user.email }}</h6><br> -->
+							<h5>Προσωπικά Στοιχεία <small><a href="{% url 'users-edit' %}"><i class="fa fa-pencil-square-o"></i></a></small></h5>
 							<table>
 								<tr>
 									<td class="pr-4" style="font-weight: normal;">Ίδρυμα: </td>
@@ -34,7 +31,6 @@
 							<h5>Στοιχεία Λογαριασμού <small><a href="{% url 'users-edit' %}">Επεξεργασία</a></small></h5>
 							Επωνυμία: <h6 style="display: inline;">{{ info.title }}</h6>
 						{% endif %}
-						
 					</div>
 					<div class="col-md-6">
 						{% if student %}
