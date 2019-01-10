@@ -136,6 +136,7 @@ class UniversityForm(forms.Form):
 	def __init__(self, *args, **kwargs):
 		super(UniversityForm, self).__init__(*args, **kwargs)
 		self.fields['university'].label = "Επιλέξτε Ίδρυμα:"
+		self.fields['university'].empty_label = None
 
 class DepartmentForm(forms.Form):
 	department = UniversityChoiceField(queryset = Department.objects.all())
@@ -143,6 +144,7 @@ class DepartmentForm(forms.Form):
 	def __init__(self, *args, **kwargs):
 		super(DepartmentForm, self).__init__(*args, **kwargs)
 		self.fields['department'].label = "Επιλέξτε Τμήμα:"
+		self.fields['department'].empty_label = None
 
 SEMESTERS = (
 	(1, '1ο Εξάμηνο'),
