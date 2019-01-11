@@ -4,11 +4,11 @@
 	<div class="content-section container shadow mb-6">
 		<div class="col-md-12">
 			<br>
-			<h3>Καλώς ήρθες {{ user.username }}!</h3>
+			<h3>Προφίλ Χρήστη {{ user.username }}!</h3>
 			<div class="border-top pt-3">
 				<br>
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						{% if student %}
 							<h5>Προσωπικά Στοιχεία <small><a href="{% url 'users-edit' %}"><i class="fa fa-pencil-square-o"></i></a></small></h5>
 							<table>
@@ -32,16 +32,29 @@
 							Επωνυμία: <h6 style="display: inline;">{{ info.title }}</h6>
 						{% endif %}
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-8">
 						{% if student %}
 							<h5>Ιστορικό Δηλώσεων Συγγραμμάτων</h5>
 							<br>
 							{% if orders %}
 								{% for order in orders %}
 									<h6>Δήλωση: {{ forloop.counter }}</h6>
-									{% for book in order.books.all %}
-										<div style="text-indent: 10px;">{{ book.title }}</div>
-									{% endfor %}
+									<table class="">
+										<thead>
+											<tr>
+												<th scope="col">Συγγράμματα:</th>
+												<th scope="col">Παραλαβή από:</th>
+											</tr>
+										</thead>
+										</tbody>
+											{% for book in order.books.all %}
+											<tr>
+												<td><div style="text-indent: 10px;">{{ book.title }}</div></td>
+												<td><div style="text-indent: 10px;">{{ book.dist }}</div></td>
+											<tr>
+											{% endfor %}
+										</tbody>
+									</table>
 									<br>
 								{% endfor %}
 							{% else %}

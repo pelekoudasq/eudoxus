@@ -5,9 +5,9 @@ from django.forms import formset_factory
 from users.models import *
 
 USER_TYPES = (
-	(1, 'Φοιτητής'),
+	(1, 'Φοιτητής/τρια'),
 	(2, 'Εκδότης'),
-	(3, 'Σημείο Διανομής'),
+	(3, 'Διανομέας Συγγραμάτων'),
 	(4, 'Γραμματεία'),
 )
 
@@ -210,5 +210,6 @@ class OrderFinal(forms.Form):
 
 	def __init__(self, *args, **kwargs):
 		super(OrderFinal, self).__init__(*args, **kwargs)
+		#self.initial['way_of_receipt'] = RECEIPT[1]
 
 FinalFormset = formset_factory(OrderFinal, extra=1)

@@ -43,7 +43,7 @@
 					<div class="navbar-nav mr-auto">
 						<a class="nav-item nav-link {% if request.resolver_match.url_name == 'users-home' %}active{% endif %}" href="{% url 'users-home' %}">Αρχική</a>
 						<li class="nav-item dropdown" id="drop1">
-							<a class="nav-link {% if request.resolver_match.url_name == 'users-order' or request.resolver_match.url_name == 'users-exchange' or request.resolver_match.url_name == 'users-student' or request.resolver_match.url_name == 'users-display' %}active{% endif %}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Φοιτητής</a>
+							<a class="nav-link {% if request.resolver_match.url_name == 'users-order' or request.resolver_match.url_name == 'users-exchange' or request.resolver_match.url_name == 'users-student' or request.resolver_match.url_name == 'users-display' %}active{% endif %}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Φοιτητές</a>
 							<div class="dropdown-menu" id="drop2">
 								<a class="dropdown-item" href="{% url 'users-order' %}">Δήλωση</a>
 								<div class="dropdown-divider"></div>
@@ -51,23 +51,23 @@
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{% url 'users-exchange' %}">Ανταλλαγή</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="{% url 'users-student' %}">Οδηγός Φοιτητή</a>
+								<a class="dropdown-item" href="{% url 'users-student' %}">Οδηγός Φοιτητών</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown {% if request.resolver_match.url_name == 'users-publisher' %}active{% endif %}" id="drop1">
-							<a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Εκδότης</a>
+							<a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Εκδότες</a>
 							<div class="dropdown-menu" id="drop2">
 								<a class="dropdown-item" href="{% url 'users-publisher' %}">Διαχείριση Συγγραμμάτων</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Οδηγός Εκδότη</a>
+								<a class="dropdown-item" href="#">Οδηγός Εκδοτών</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown" id="drop1">
 							<a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Διανομείς</a>
 							<div class="dropdown-menu" id="drop2">
-								<a class="dropdown-item" href="#">Παράδοση Συγγραμμάτων</a>
+								<a class="dropdown-item" href="{% url 'users-distribution' %}">Παράδοση Συγγραμμάτων</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Οδηγός Διανομέων</a>
+								<a class="dropdown-item" href="{% url 'users-distributor' %}">Οδηγός Διανομέων</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown" id="drop1">
@@ -93,11 +93,15 @@
 	</header>
 	<main role="main">
 		{% if messages %}
-			{% for message in messages %}
-				<div class="alert alert-{{ message.tags }}">
-					{{ message }}
+			<div class="row container-fluid">
+				<div class="col-md-12">
+					{% for message in messages %}
+						<div class="alert alert-{{ message.tags }}">
+							<b>{{ message }}</b>
+						</div>
+					{% endfor %}
 				</div>
-			{% endfor %}
+			</div>
 		{% endif %}
 		{% block content %}{% endblock %}
 	</main>
@@ -110,26 +114,26 @@
 				</div>
 				<hr class="clearfix w-100 d-md-none pb-3">
 				<div class="col-md-2 mb-md-0 mb-2">
-					<h6 class="text-uppercase">Φοιτητης</h6>
+					<h6 class="text-uppercase">Φοιτητές</h6>
 					<ul class="list-unstyled">
 						<li><a href="{% url 'users-order' %}">Δήλωση</a></li>
 						<li><a href="{% url 'users-display' %}">Συγγράμματα</a></li>
 						<li><a href="{% url 'users-exchange' %}">Ανταλλαγή</a></li>
-						<li><a href="{% url 'users-student' %}">Οδηγός Φοιτητή</a></li>
+						<li><a href="{% url 'users-student' %}">Οδηγός Φοιτητών</a></li>
 					</ul>
 				</div>
 				<div class="col-md-2 mb-md-0 mb-2">
-					<h6 class="text-uppercase">εκδοτης</h6>
+					<h6 class="text-uppercase">εκδοτες</h6>
 					<ul class="list-unstyled">
 						<li><a href="{% url 'users-publisher' %}">Διαχείριση Συγγραμμάτων</a></li>
-						<li><a href="#!">Οδηγός Εκδότη</a></li>
+						<li><a href="#!">Οδηγός Εκδοτών</a></li>
 					</ul>
 				</div>
 				<div class="col-md-2 mb-md-0 mb-2">
 					<h6 class="text-uppercase">διανομεις</h6>
 					<ul class="list-unstyled">
-						<li><a href="#!">Παράδοση Συγγραμμάτων</a></li>
-						<li><a href="#!">Οδηγός Σημείου Διανομής</a></li>
+						<li><a href="{% url 'users-distribution' %}">Παράδοση Συγγραμμάτων</a></li>
+						<li><a href="{% url 'users-distributor' %}">Οδηγός Διανομέων</a></li>
 					</ul>
 				</div>
 				<div class="col-md-2 mb-md-0 mb-2">
@@ -140,7 +144,7 @@
 					</ul>
 				</div>
 				<div class="col-md-2 mb-md-0 mb-2">
-					<h6 class="text-uppercase">Χρησιμα</h6>
+					<h6 class="text-uppercase">Χρήσιμα</h6>
 					<ul class="list-unstyled">
 						<li><a href="#!">Ανακοινώσεις</a></li>
 						<li><a href="#!">Βοήθεια</a></li>

@@ -42,6 +42,7 @@ class Book(models.Model):
 	isbn = models.IntegerField(unique=True, blank=False)
 	first_published = models.IntegerField(blank=False)
 	pub = models.ForeignKey(Publisher, on_delete=models.CASCADE, blank=False)
+	dist = models.ForeignKey(Distributor, on_delete=models.CASCADE, blank=False)
 
 	def __str__(self):
 		return self.title

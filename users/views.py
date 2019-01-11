@@ -34,6 +34,9 @@ def distribution(request):
 	else:
 		return redirect('/login/?next=%s' % request.path)
 
+def distributor(request):
+	return render(request, 'users/distributor.html', {'title': 'Οδηγός Διανομής'})
+
 def publisher(request):
 	if request.user.is_authenticated and request.user.groups.all()[0].name == 'publishers':
 		return render(request, 'users/publisher.html', {'title': 'Εκδότης'})
@@ -125,10 +128,12 @@ class OrderWizard(SessionWizardView):
 			for i in range(len(classes)):
 				form.forms[i].fields['book'].label = classes[i]
 				form.forms[i].fields['book'].queryset = classes[i].books.all()
+				#form.forms[i].initial = {'book':1}
 		elif step == 'final':
 			books = self.get_cleaned_data_for_step('books')
 			form.extra = len(books)
 			for i in range(len(books)):
+				form.forms[i].initial = {'way_of_receipt':1}
 				form.forms[i].fields['way_of_receipt'].label = books[i]['book']
 		return form
 	
@@ -143,7 +148,7 @@ class OrderWizard(SessionWizardView):
 			print(books[0]['book'])
 			for book in books:
 				order.books.add(book['book'])
-			# messages.success(request, f'{form_data} επιλέχθηκαν')
+			messages.success(self.request, f'Η δήλωσή σας καταχωρήθηκε επιτυχώς!')
 			return redirect('profile')
 		else:
 			return redirect('/login/?next=%s' % self.request.path)
@@ -175,6 +180,10 @@ def profile(request):
 		#get student's orders
 		orders = Order.objects.filter(user=request.user)
 		args['orders'] = orders
+		for order in orders:
+			for book in order.books.all():
+				print(book.dist)
+			print("----------")
 	elif request.user.groups.all()[0].name == 'publishers':
 		info = Publisher.objects.filter(user=request.user).first()
 		args['info'] = info

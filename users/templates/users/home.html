@@ -17,7 +17,7 @@
 					<img srcset="{% static 'new-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
 				</picture>
 				<div class="carousel-caption mr-auto">
-					<h1>Φοιτητής</h1>
+					<h1>Φοιτητές</h1>
 					<h6 class="mb-3" style="color:#444444;">Είσαι φοιτητής; Δικαιούσαι δωρεάν συγγράμματα!</h6>
 					<a href="{% url 'users-student' %}" class="btn btn-light mb-4">Μάθε περισσότερα</a>
 				</div>
@@ -30,7 +30,7 @@
 					<img style="-webkit-filter: blur(1px);filter: blur(1px);" srcset="{% static 'sec-600x500.jpg' %}" alt="responsive image" class="d-block img-fluid">
 				</picture>
 				<div class="carousel-caption justify-content-center align-items-center">
-					<h1 style="color:white;">Εκδότης</h1>
+					<h1 style="color:white;">Εκδότες</h1>
 					<h6 class="mb-3" style="color:#fff;">Είστε εκδότης ακαδημαϊκών συγγραμμάτων; Μπορείτε να συμμετέχετε στο πρόγραμμα Εύδοξος</h6>
 					<a href="{% url 'users-about' %}" class="btn btn-light mb-4">Μάθε περισσότερα</a>
 				</div>
@@ -45,8 +45,8 @@
 				<div class="carousel-caption justify-content-center align-items-center">
 					<h1 style="color:white;">Διανομείς</h1>
 					<h6 class="mb-3" style="color:#fff;">Είστε Βιβλιοπωλείο ή Βιβλιοθήκη και θέλετε να διανείμετε ακαδημαϊκά συγγράμματα;</h6>
-					<a class="btn btn-light mb-4" href="#">Μάθε περισσότερα</a>
-				</div>
+					<a class="btn btn-light mb-4" href="{% url 'users-distributor' %}">Μάθε περισσότερα</a>
+				</div> 
 			</div>
 			<div class="carousel-item">
 				<picture>
@@ -72,23 +72,23 @@
 		</a>
 	</div>
 	<br>
-	<div class="row mx-5 ">
+	<div class="row mx-5">
 		<div class="col-sm-3 mx p-0 content-section shadow mb-6 mt-0 p-0">
 			<a href="{% url 'users-student' %}" style="text-decoration: none;">
 				<div class="menubot" style="height: 200px; text-align: center;">
-					<br><br><img style="display: inline-block; height: 90px; margin-top: -5px" src="{% static '/students-cap.png' %}"><br><h5>Φοιτητής</h5>
+					<br><br><img style="display: inline-block; height: 90px; margin-top: -5px" src="{% static '/students-cap.png' %}"><br><h5>Φοιτητές</h5>
 				</div>
 			</a>
 		</div>
 		<div class="col-sm-3 mx-0 p-0 content-section shadow mb-6 mt-0 p-0">
 			<a href="#" style="text-decoration: none;">
 				<div class="menubot" style="height: 200px; text-align: center;">
-					<br><br><img style="display: inline-block; height: 90px; margin-top: -5px" src="{% static '/library.png' %}"><br><h5>Εκδότης</h5>
+					<br><br><img style="display: inline-block; height: 90px; margin-top: -5px" src="{% static '/library.png' %}"><br><h5>Εκδότες</h5>
 				</div>
 			</a>
 		</div>
 		<div class="col-sm-3 mx-0 p-0 content-section shadow mb-6 mt-0 p-0">
-			<a href="#" style="text-decoration: none;">
+			<a href="{% url 'users-distributor' %}" style="text-decoration: none;">
 				<div class="menubot" style="height: 200px; text-align: center;">
 					<br><br><img style="display: inline-block; height: 90px; margin-top: -5px" src="{% static '/stack-of-books.png' %}"><br><h5>Διανομείς</h5>
 				</div>
