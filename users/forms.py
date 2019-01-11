@@ -213,3 +213,12 @@ class OrderFinal(forms.Form):
 		#self.initial['way_of_receipt'] = RECEIPT[1]
 
 FinalFormset = formset_factory(OrderFinal, extra=1)
+
+
+############## give book ###############
+
+class GiveBook(forms.Form):
+	book = forms.ChoiceField(required=True)
+
+	def __init__(self, *args, **kwargs):
+		super(GiveBook, self).__init__(*args, **kwargs)
