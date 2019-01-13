@@ -48,11 +48,12 @@ def distribution(request):
 		args = {}
 		if request.method == 'GET':
 			distr = Distributor.objects.filter(user=request.user).first()
-			books = Book.objects.filter(dist=1)
+			books = Book.objects.filter(dist=distr)
 			print(distr)
 			args['distr'] = distr
 			args['books'] = books
 			form = GiveBook()
+			form.fields['books'].queryset = books
 			args['form'] = form
 			return render(request, 'users/distribution.html', args)
 		else:
