@@ -15,101 +15,182 @@ import logging
 logr = logging.getLogger(__name__)
 
 def home(request):
+
+	#search handler
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
 		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
-	return render(request, 'users/home.html', {'title': 'Αρχική'})
+	#end of search handler
+	else:
+		return render(request, 'users/home.html', {'title': 'Αρχική'})
 
 def about(request):
-	query = request.GET.get("q")
-	if query:
-		queryset_list = Book.objects.all()
-		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
-		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
-	return render(request, 'users/about.html', {'title': 'Βοήθεια'})
 
-def student(request):
+	#search handler
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
 		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
-	return render(request, 'users/student.html', {'title': 'Φοιτητής'})
+	#end of search handler
+	else:
+		return render(request, 'users/about.html', {'title': 'Βοήθεια'})
+
+def announcements(request):
+	#search handler
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
+	#end of search handler
+
+	return render(request, 'users/announcements.html', {'title': 'Ανακοινώσεις'})
+
+
+############### * CONTACT * ###############
+
+def contact(request):
+
+	#search handler
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
+	#end of search handler
+
+	#contact form
+	if request.method == 'GET':
+		form = ContactForm()
+	else:
+		form = ContactForm(request.POST)
+		if form.is_valid():
+			subject = form.cleaned_data['subject']
+			from_email = form.cleaned_data['from_email']
+			message = form.cleaned_data['message']
+			try:
+				send_mail(subject, message, from_email, ['peleioannis@gmail.com'])
+			except BadHeaderError:
+				return HttpResponse('Invalid header found.')
+		messages.success(request, f'Το μήνυμά σας εστάλη με επιτυχία, ευχαριστούμε για την επικοινωνία!')
+		return redirect('users-home')
+	return render(request, "users/contact.html", {'form': form})
+
+
+############### * DISTRIBUTION PROCESS * ###############
 
 def distribution(request):
+
+	#search handler
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
 		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
+	#end of search handler
+
+	#if user is logged in and is a distributor
 	if request.user.is_authenticated and request.user.groups.all()[0].name == 'distributors':
 		args = {}
+		#get request, 
+		distr = Distributor.objects.filter(user=request.user).first()
+		books = Book.objects.filter(dist=distr)
+		print(distr)
+		args['distr'] = distr
+		args['books'] = books
 		if request.method == 'GET':
-			distr = Distributor.objects.filter(user=request.user).first()
-			books = Book.objects.filter(dist=distr)
-			print(distr)
-			args['distr'] = distr
-			args['books'] = books
+			#find the books that the user distributes
+			#create a form with this books and their availability
 			form = GiveBook()
 			form.fields['books'].queryset = books
 			args['form'] = form
 			return render(request, 'users/distribution.html', args)
+		#post request
 		else:
+			#get form that was posted
 			form = GiveBook(request.POST)
 			if form.is_valid():
+				#get books selected for distribution
 				books_selected = form.cleaned_data['books']
+				#for every book, update its availability
 				for book in books_selected:
-					bsel = Book.objects.get(pk=book.id)
-					newAvail = bsel.avail - 1
-					if newAvail >= 0:
-						b = Book.objects.filter(pk=book.id).update(avail=newAvail)
-						messages.success(request, f'Το σύγγραμμα με τίτλο "{bsel}" παραδόθηκε επιτυχώς!')
+					b_sel = Book.objects.get(pk=book.id)
+					new_avail = b_sel.avail - 1
+					if new_avail >= 0:
+						b = Book.objects.filter(pk=book.id).update(avail=new_avail)
+						messages.success(request, f'Το σύγγραμμα με τίτλο "{b_sel}" παραδόθηκε επιτυχώς!')
 			form = GiveBook()
+			form.fields['books'].queryset = books
 			args['form'] = form
 			return render(request, 'users/distribution.html', args)
 	else:
 		return redirect('/login/?next=%s' % request.path)
 
 def distributor(request):
+
+	#search handler
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
 		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
+	#end of search handler
 	return render(request, 'users/distributor.html', {'title': 'Οδηγός Διανομής'})
 
+
+############### * PUBLISHER * ###############
+
 def publisher(request):
+
+	#search handler
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
 		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
+	#end of search handler
+
+	#if user is logged in and is a publisher
 	if request.user.is_authenticated and request.user.groups.all()[0].name == 'publishers':
 		return render(request, 'users/publisher.html', {'title': 'Εκδότης'})
 	else:
 		return redirect('/login/?next=%s' % request.path)
 
-def announcements(request):
+
+############### * STUDENT * ###############
+
+def student(request):
+
+	#search handler
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
 		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
-	return render(request, 'users/announcements.html', {'title': 'Ανακοινώσεις'})
+	#end of search handler
+	else:
+		return render(request, 'users/student.html', {'title': 'Φοιτητής'})
 
 def exchange(request):
+
+	#search handler
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
 		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
+	#end of search handler
+
+	#if user is logged in and is a student
 	if request.user.is_authenticated and request.user.groups.all()[0].name == 'students':
 		return render(request, 'users/exchange.html', {'title': 'Ανταλλαγή'})
 	else:
 		return redirect('/login/?next=%s' % request.path)
-	
+
+
 ############### * DISPLAY ALL BOOKS * ###############
 
 class DisplayWizard(AccessMixin, SessionWizardView):
@@ -139,6 +220,7 @@ class DisplayWizard(AccessMixin, SessionWizardView):
 		print (form_data)
 		# messages.success(request, f'{form_data} επιλέχθηκαν')
 		return redirect('profile')
+
 
 ############### * ORDER BOOKS * ###############
 
@@ -216,23 +298,34 @@ def process_form_data(form_list):
 ############### * SEARCH * ###############
 
 def search(request):
+
+	#search handler
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
 		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct().order_by('title')
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
+	#end of search handler
+
 	return render(request, 'users/search.html', {'title': 'Search'})
+
 
 ############### * PROFILE * ###############
 
 @login_required
 def profile(request):
+
+	#search handler
 	query = request.GET.get("q")
 	if query:
 		queryset_list = Book.objects.all()
 		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
 		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
+	#end of search handler
+
 	args = {}
+
+	#if user is a student
 	if request.user.groups.all()[0].name == 'students':
 		#get student info
 		student = Student.objects.filter(user=request.user).first()
@@ -244,6 +337,7 @@ def profile(request):
 			for book in order.books.all():
 				print(book.dist)
 			print("----------")
+	#else, for the other three categories we just have a title
 	elif request.user.groups.all()[0].name == 'publishers':
 		info = Publisher.objects.filter(user=request.user).first()
 		args['info'] = info
@@ -297,15 +391,20 @@ def edit_profile(request):
 ############### * REGISTRATION * ###############
 
 def register(request):
+	#if new user
 	if request.method == 'POST':
 		form = UserRegisterForm(request.POST)
 		if form.is_valid():
 			user = form.save()
+			#get user type
 			group_selected = form.cleaned_data.get('user_type')
+			#find group of that user type
 			group = Group.objects.get(id=group_selected)
+			#add user to that group
 			user.groups.add(group)
 			username = form.cleaned_data.get('username')
 			messages.success(request, f'{username}, ο λογαριασμός σας δημιουργήθηκε με επιτυχία!')
+			#log new user in so can procede to additional info, 'additional_register' requires login
 			new_user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
 			login(request, new_user)
 			return redirect('additional')
@@ -313,6 +412,7 @@ def register(request):
 		form = UserRegisterForm()
 	return render(request, 'users/register.html', {'form': form})
 
+### under construction
 def load_departments(request):
 	uni = request.GET('uni')
 	depts = Department.objects.filter(uni=uni).order_by('title')
@@ -352,27 +452,3 @@ def additional_register(request):
 		elif request.user.groups.all()[0].name == 'secretaries':
 			form = SecretaryAdditionalInfo()
 	return render(request, 'users/additional.html', {'form': form})
-
-############### * CONTACT * ###############
-
-def contact(request):
-	query = request.GET.get("q")
-	if query:
-		queryset_list = Book.objects.all()
-		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
-		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
-	if request.method == 'GET':
-		form = ContactForm()
-	else:
-		form = ContactForm(request.POST)
-		if form.is_valid():
-			subject = form.cleaned_data['subject']
-			from_email = form.cleaned_data['from_email']
-			message = form.cleaned_data['message']
-			try:
-				send_mail(subject, message, from_email, ['peleioannis@gmail.com'])
-			except BadHeaderError:
-				return HttpResponse('Invalid header found.')
-		messages.success(request, f'Το μήνυμά σας εστάλη με επιτυχία, ευχαριστούμε για την επικοινωνία!')
-		return redirect('users-home')
-	return render(request, "users/contact.html", {'form': form})

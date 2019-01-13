@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.forms import formset_factory
 from users.models import *
 
+
+############### * REGISTRATION * ###############
+
 USER_TYPES = (
 	(1, 'Φοιτητής/τρια'),
 	(2, 'Εκδότης'),
@@ -216,7 +219,7 @@ class OrderFinal(forms.Form):
 FinalFormset = formset_factory(OrderFinal, extra=1)
 
 
-############## give book ###############
+############## distribution ###############
 
 class BookGiveChoiceField(forms.ModelMultipleChoiceField):
 	def label_from_instance(self, obj):

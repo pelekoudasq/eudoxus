@@ -1,6 +1,26 @@
 from django.contrib.auth.models import User, Group
 from django.db import models
 
+
+
+class University(models.Model):
+	title = models.CharField(max_length=100, unique=True, blank=False)
+
+	def __str__(self):
+		return self.title
+
+class Department(models.Model):
+	title = models.CharField(max_length=100, blank=False)
+	uni = models.ForeignKey(University, on_delete=models.CASCADE, blank=False)
+
+	def __str__(self):
+		return self.title
+
+class Student(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+	uni = models.ForeignKey(University, on_delete=models.CASCADE, blank=False)
+	dept = models.ForeignKey(Department, on_delete=models.CASCADE, blank=False)
+
 class Publisher(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 	title = models.CharField(max_length=100, unique=True, blank=False)
@@ -18,19 +38,6 @@ class Distributor(models.Model):
 class Secretary(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
 	title = models.CharField(max_length=100, unique=True, blank=False)
-
-	def __str__(self):
-		return self.title
-
-class University(models.Model):
-	title = models.CharField(max_length=100, unique=True, blank=False)
-
-	def __str__(self):
-		return self.title
-
-class Department(models.Model):
-	title = models.CharField(max_length=100, blank=False)
-	uni = models.ForeignKey(University, on_delete=models.CASCADE, blank=False)
 
 	def __str__(self):
 		return self.title
@@ -60,8 +67,3 @@ class Class(models.Model):
 class Order(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
 	books = models.ManyToManyField(Book)
-
-class Student(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-	uni = models.ForeignKey(University, on_delete=models.CASCADE, blank=False)
-	dept = models.ForeignKey(Department, on_delete=models.CASCADE, blank=False)
