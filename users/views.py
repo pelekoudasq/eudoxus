@@ -60,10 +60,11 @@ def distribution(request):
 			if form.is_valid():
 				books_selected = form.cleaned_data['books']
 				for book in books_selected:
-					b = Book.objects.get(pk=book.id)
-					newAvail = b.avail - 1
+					bsel = Book.objects.get(pk=book.id)
+					newAvail = bsel.avail - 1
 					if newAvail >= 0:
 						b = Book.objects.filter(pk=book.id).update(avail=newAvail)
+						messages.success(request, f'Το σύγγραμμα με τίτλο "{bsel}" παραδόθηκε επιτυχώς!')
 			form = GiveBook()
 			args['form'] = form
 			return render(request, 'users/distribution.html', args)
