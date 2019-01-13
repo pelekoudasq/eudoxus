@@ -8,12 +8,12 @@
 			<div class="row">
 				<div class="col-md-8">
 					<form method="post">
-					    {% csrf_token %}
-					    <fieldset class="form-group">
+						{% csrf_token %}
+						<fieldset class="form-group">
 							<p class="lead border-bottom mb-7 py-2">Επικοινωνήστε μαζί μας συμπληρώνοντας την φόρμα</p>
 						</fieldset>
 						{{ form|crispy }}
-					    <div class="form-group text-center">
+						<div class="form-group text-center">
 							<button class="btn btn-outline-info" type="submit">Αποστολή</button>
 						</div>
 					</form>

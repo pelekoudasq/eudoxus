@@ -79,7 +79,7 @@
 							</div>
 						</li>
 					</div>
-				    {% if request.resolver_match.url_name == 'users-home' %}
+				    {% if request.resolver_match.url_name != 'users-edit' and request.resolver_match.url_name != 'additional' and request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'users-order' and request.resolver_match.url_name != 'users-display' and request.resolver_match.url_name != 'logout' %}
 					<div class="navbar-nav ">
 						<form class="form-inline" method="GET" action=''>
 							<input class="form-control mr-sm-2" type="search" name='q' placeholder="Αναζήτηση" aria-label="Search" value="{{ request.GET.q }}">

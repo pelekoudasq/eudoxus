@@ -36,13 +36,14 @@ class Department(models.Model):
 		return self.title
 
 class Book(models.Model):
-	title = models.CharField(max_length=100, blank=False)
-	author = models.CharField(max_length=100, blank=False)
-	total_pages = models.IntegerField()
-	isbn = models.IntegerField(unique=True, blank=False)
-	first_published = models.IntegerField(blank=False)
-	pub = models.ForeignKey(Publisher, on_delete=models.CASCADE, blank=False)
-	dist = models.ForeignKey(Distributor, on_delete=models.CASCADE, blank=False)
+	title = models.CharField(max_length=100, blank=True, null=True)
+	author = models.CharField(max_length=100, blank=True, null=True)
+	total_pages = models.IntegerField(blank=True, null=True)
+	isbn = models.IntegerField(unique=True, blank=True, null=True)
+	first_published = models.IntegerField(blank=True, null=True)
+	pub = models.ForeignKey(Publisher, on_delete=models.CASCADE, blank=True, null=True)
+	dist = models.ForeignKey(Distributor, on_delete=models.CASCADE, blank=True, null=True)
+	avail = models.IntegerField(blank=True, null=True)
 
 	def __str__(self):
 		return self.title

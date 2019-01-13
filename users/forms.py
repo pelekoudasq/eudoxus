@@ -57,6 +57,7 @@ class StudentAdditionalInfo(forms.ModelForm):
 		super(StudentAdditionalInfo, self).__init__(*args, **kwargs)
 		self.fields['uni'].label = "Επιλέξτε το Ίδρυμά σας:"
 		self.fields['dept'].label = "Επιλέξτε το Τμήμα σας:"
+		self.fields['dept'].queryset = Department.objects.none()
 
 class PublisherAdditionalInfo(forms.ModelForm):
 
@@ -217,8 +218,13 @@ FinalFormset = formset_factory(OrderFinal, extra=1)
 
 ############## give book ###############
 
+class BookGiveChoiceField(forms.ModelMultipleChoiceField):
+	def label_from_instance(self, obj):
+		return obj.title+", Διαθεσιμότητα: "+str(obj.avail)
+
 class GiveBook(forms.Form):
-	book = forms.ChoiceField(required=True)
+	books = BookGiveChoiceField(queryset=Book.objects.all(), required=True, widget=forms.CheckboxSelectMultiple)
 
 	def __init__(self, *args, **kwargs):
 		super(GiveBook, self).__init__(*args, **kwargs)
+		self.fields['books'].label = "Επιλέξτε τα Συγγράμματα για παράδοση:"

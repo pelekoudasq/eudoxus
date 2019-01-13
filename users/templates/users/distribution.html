@@ -1,14 +1,21 @@
 {% extends "users/base.html"%}
 {% load crispy_forms_tags %}
 {% load static %}
-{% load i18n %}
 {% block content %}
 	<div class="content-section container shadow mb-6">
 		<div class="col-md-12">
 			<div class="border-bottom pt-3">
 				<p class="h4 text-center">Εφαρμογή Παράδοσης Συγγραμμάτων</p>
 			</div>
-			
+			<br>
+			<form method="post">
+				{% csrf_token %}
+					{{ form|crispy }}
+				<div class="form-group text-center">
+					<button class="btn btn-info" type="submit">Παράδοση</button>
+				</div>
+			</form>
+			<br>
 			<div class="border-top pt-3">
 				<nav class="small" aria-label="breadcrumb">
 					<ol class="breadcrumb">

@@ -23,33 +23,86 @@ def home(request):
 	return render(request, 'users/home.html', {'title': 'Αρχική'})
 
 def about(request):
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	return render(request, 'users/about.html', {'title': 'Βοήθεια'})
 
 def student(request):
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	return render(request, 'users/student.html', {'title': 'Φοιτητής'})
 
 def distribution(request):
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	if request.user.is_authenticated and request.user.groups.all()[0].name == 'distributors':
-		return render(request, 'users/distribution.html', {'title': 'Διανομή'})
+		args = {}
+		if request.method == 'GET':
+			distr = Distributor.objects.filter(user=request.user).first()
+			books = Book.objects.filter(dist=1)
+			print(distr)
+			args['distr'] = distr
+			args['books'] = books
+			form = GiveBook()
+			args['form'] = form
+			return render(request, 'users/distribution.html', args)
+		else:
+			form = GiveBook(request.POST)
+			if form.is_valid():
+				books_selected = form.cleaned_data['books']
+				for book in books_selected:
+					b = Book.objects.get(pk=book.id)
+					newAvail = b.avail - 1
+					if newAvail >= 0:
+						b = Book.objects.filter(pk=book.id).update(avail=newAvail)
+			form = GiveBook()
+			args['form'] = form
+			return render(request, 'users/distribution.html', args)
 	else:
 		return redirect('/login/?next=%s' % request.path)
 
 def distributor(request):
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	return render(request, 'users/distributor.html', {'title': 'Οδηγός Διανομής'})
 
 def publisher(request):
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	if request.user.is_authenticated and request.user.groups.all()[0].name == 'publishers':
 		return render(request, 'users/publisher.html', {'title': 'Εκδότης'})
 	else:
 		return redirect('/login/?next=%s' % request.path)
 
 def announcements(request):
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	return render(request, 'users/announcements.html', {'title': 'Ανακοινώσεις'})
 
-def contact(request):
-	return render(request, 'users/contact.html', {'title': 'Επικοινωνία'})
-
 def exchange(request):
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	if request.user.is_authenticated and request.user.groups.all()[0].name == 'students':
 		return render(request, 'users/exchange.html', {'title': 'Ανταλλαγή'})
 	else:
@@ -172,6 +225,11 @@ def search(request):
 
 @login_required
 def profile(request):
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	args = {}
 	if request.user.groups.all()[0].name == 'students':
 		#get student info
@@ -253,6 +311,11 @@ def register(request):
 		form = UserRegisterForm()
 	return render(request, 'users/register.html', {'form': form})
 
+def load_departments(request):
+	uni = request.GET('uni')
+	depts = Department.objects.filter(uni=uni).order_by('title')
+	return render(request, )
+
 @login_required
 def additional_register(request):
 	if request.method == 'POST':
@@ -291,6 +354,11 @@ def additional_register(request):
 ############### * CONTACT * ###############
 
 def contact(request):
+	query = request.GET.get("q")
+	if query:
+		queryset_list = Book.objects.all()
+		queryset_list = queryset_list.filter(Q(title__icontains=query)|Q(author__icontains=query)|Q(isbn__icontains=query)|Q(pub__title__icontains=query)).distinct()
+		return render(request, 'users/search.html', {'results':queryset_list, 'requested':query, 'len':len(queryset_list)})
 	if request.method == 'GET':
 		form = ContactForm()
 	else:
