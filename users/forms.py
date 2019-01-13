@@ -57,7 +57,7 @@ class StudentAdditionalInfo(forms.ModelForm):
 		super(StudentAdditionalInfo, self).__init__(*args, **kwargs)
 		self.fields['uni'].label = "Επιλέξτε το Ίδρυμά σας:"
 		self.fields['dept'].label = "Επιλέξτε το Τμήμα σας:"
-		self.fields['dept'].queryset = Department.objects.none()
+		# self.fields['dept'].queryset = Department.objects.none()
 
 class PublisherAdditionalInfo(forms.ModelForm):
 
