@@ -2,7 +2,7 @@
 #### Human-Computer Interaction, Project 3
 Online management service for Academic Textbooks
 
-Dev-run: http://83.212.99.213:8181/
+Dev-run: http://83.212.99.213/
 
 Contributors
 ------------
