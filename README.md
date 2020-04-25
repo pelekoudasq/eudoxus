@@ -1,4 +1,4 @@
-# Eudoxus
+# Eudoxus ![GitHub](https://img.shields.io/github/license/pelekoudasq/eudoxus?color=blue) ![Website](https://img.shields.io/website?down_color=green&down_message=up&label=dev%20website&url=http%3A%2F%2F83.212.99.213%2F)
 #### Human-Computer Interaction, Project 3
 Online management service for Academic Textbooks
 
